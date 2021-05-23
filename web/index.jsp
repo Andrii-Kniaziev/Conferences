@@ -14,19 +14,19 @@
   <h1>Добро пожаловать на конференции</h1>
   <div>
     <h2>Вход</h2>
-    <form name="form2" method="post" acction="conferences">
+    <form name="Form2" method="post" action="conferences">
       <input type="hidden" name="command" value="login">
       <table style="width: 80%">
         <tr>
           <td>Имейл</td>
           <td>
-            <input type="email" name="email">
+            <input type="email" name="email" required>
           </td>
         </tr>
         <tr>
           <td>Пароль</td>
           <td>
-            <input type="text" name="password">
+            <input type="text" name="password" required>
           </td>
         </tr>
       </table>

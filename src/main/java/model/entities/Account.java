@@ -8,6 +8,10 @@ public class Account {
     private String lastName;
     private Role role;
 
+    public Account(){
+
+    }
+
     public Account(String email, String password, String first_name, String last_name, Role role) {
         this.email = email;
         this.password = password;

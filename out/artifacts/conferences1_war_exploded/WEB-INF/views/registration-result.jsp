@@ -13,5 +13,6 @@
 <body>
 <h1> ${requestScope.result} </h1>
 <a href="registration.jsp">Вернуться на страницу регистрации</a>
+<a href="index.jsp">Вернуться на страницу авторизации</a>
 </body>
 </html>

@@ -9,6 +9,8 @@ public class CommandContainer {
     static {
         commands = new HashMap<>();
         commands.put("register", new RegisterCommand());
+        commands.put("login", new LoginCommand());
+        commands.put("logOut", new LogoutCommand());
     }
 
     public static Command getCommandByName(String name) {

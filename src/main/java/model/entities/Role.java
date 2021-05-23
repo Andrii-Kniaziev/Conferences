@@ -4,6 +4,7 @@ public enum Role {
     ADMIN("admin"),
     SPEAKER("speaker"),
     LISTENER("listener"),
+    UNKNOWN("unknown"),
     ERROR("error");
 
     private String value;
