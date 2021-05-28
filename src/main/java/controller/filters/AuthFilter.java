@@ -26,7 +26,7 @@ public class AuthFilter implements Filter {
         final HttpSession session = req.getSession();
 
         String role = (String) session.getAttribute("role");
-        String command = (String) req.getParameter("command");
+        String command = req.getParameter("command");
 
         System.out.println("Command name from FILTER: " + command);
 
@@ -35,10 +35,9 @@ public class AuthFilter implements Filter {
             req.setAttribute("result", "Для выполнения таких действий, разлогиньтесь");
             redirectToAccount(req, res, role);
         } else {
-            req.getRequestDispatcher("/conferences").forward(request, response);
+            filterChain.doFilter(request, response);
         }
 
-        filterChain.doFilter(request, response);
     }
 
     @Override

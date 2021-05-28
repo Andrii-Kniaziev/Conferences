@@ -39,13 +39,11 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("hello from post");
         processRequest(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("hello from GET");
         processRequest(request, response);
     }
 
@@ -56,7 +54,6 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 
         System.out.println("Command is: " + commandName);
 
-        //Command command = CommandContainer.getCommandByName(commandName);
         Command command = commands.get(commandName);
 
         try {
