@@ -15,8 +15,10 @@
    <p>${sessionScope.role}</p>
    <p>Ваш id: ${sessionScope.id}</p>
    <p>Ваше имя: ${sessionScope.name}</p>
-
-   <form> name="form3" acction="conferences">
+   <p>__________________________________________________________________________________________</p>
+   <p>Результат: ${requestScope.result}</p>
+   <p>__________________________________________________________________________________________</p>
+   <form name="form3" acction="conferences">
        <input type="hidden" name="command" value="logOut">
        <input type="submit" value="Выйти">
    </form>

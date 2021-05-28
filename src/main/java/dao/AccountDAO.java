@@ -1,9 +1,13 @@
 package dao;
 
 import model.entities.Account;
+import model.entities.Event;
 import model.entities.Role;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class AccountDAO {
     private static AccountDAO dao;
@@ -34,12 +38,13 @@ public class AccountDAO {
 
             stmt.executeUpdate();
         } catch (Exception e) {
-            throw new MyException("New user was not added", e);
+            throw new MyException("Something went wrong with insertion of new Account", e);
         }
         return true;
     }
 
     public Account getAccountByEmail(String email) {
+
         Account account = null;
 
         Connection con = null;
@@ -51,16 +56,7 @@ public class AccountDAO {
             stmt.setString(1, email);
             res = stmt.executeQuery();
             if(res.next()) {
-
-                int id = res.getInt(Constants.FIELD_ID);
-                String firstName = res.getString(Constants.FIELD_FIRST_NAME);
-                String lastName = res.getString(Constants.FIELD_LAST_NAME);
-                String emailFromDB = res.getString(Constants.FIELD_EMAIL);
-                String password = res.getString(Constants.FIELD_PASSWORD);
-                Role role = Role.stringToEnum(res.getString(Constants.FIELD_ROLE));
-
-                account = new Account(emailFromDB, password, firstName, lastName, role);
-                account.setId(id);
+                account = getAccFromRS(res);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -73,6 +69,43 @@ public class AccountDAO {
         return account;
     }
 
+    public List<Account> getAccounts(String role) throws MyException {
+        List<Account> speakers = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(Constants.GET_ACCOUNT_BY_ROLE);
+            stmt.setString(1, role);
+            res = stmt.executeQuery();
+
+            while(res.next()) {
+                speakers.add(getAccFromRS(res));
+            }
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting events from DB", e);
+        } finally {
+            close(res);
+            close(stmt);
+            close(con);
+        }
+
+        return speakers;
+    }
+
+    private Account getAccFromRS (ResultSet res) throws SQLException {
+        int id = res.getInt(Constants.FIELD_ID);
+        String firstName = res.getString(Constants.FIELD_FIRST_NAME);
+        String lastName = res.getString(Constants.FIELD_LAST_NAME);
+        String emailFromDB = res.getString(Constants.FIELD_EMAIL);
+        String password = res.getString(Constants.FIELD_PASSWORD);
+        Role role = Role.stringToEnum(res.getString(Constants.FIELD_ROLE));
+
+        return new Account(id, emailFromDB, password, firstName, lastName, role);
+    }
+
     public void close(AutoCloseable ac) {
         if(ac != null) {
             try {
@@ -83,10 +116,21 @@ public class AccountDAO {
         }
     }
 
+
+
 //    public static void main(String[] args) throws MyException {
 //        AccountDAO dao = AccountDAO.getInstance();
 //        Account acc =
 //                new Account("oleg123@gmail.com", "4445AdS3", "Oleg", "Kobalev", Role.LISTENER);
 //        dao.insertAccount(acc);
+//
+//        List<Account> speakers = dao.getAccounts(Constants.ROLE_SPEAKER);
+//
+//        for (Account a : speakers) {
+//            System.out.println(a);
+//        }
+//
+//        System.out.println("**********");
+//        System.out.println(dao.getAccountByEmail("penelopa111cr@mail.ru"));
 //    }
 }
