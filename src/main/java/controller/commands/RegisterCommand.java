@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dao.AccountDAO;
+import dao.impl.JDBCAccountDAO;
 import dao.Constants;
 import dao.MyException;
 import model.entities.Account;
@@ -17,7 +17,7 @@ public class RegisterCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse resp) throws MyException {
         String result = "Вы успешно зарегестрированы, пожалуйста, авторизируйтесь";
-        AccountDAO dao = AccountDAO.getInstance();
+        JDBCAccountDAO dao = JDBCAccountDAO.getInstance();
 
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");

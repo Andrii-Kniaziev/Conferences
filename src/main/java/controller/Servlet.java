@@ -37,6 +37,7 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("registerTopic", new CreateTopicCommand());
         commands.put("eventSubscriptionInfo", new EventSubscriptionInfoCommand());
         commands.put("subscribeForEvent", new SubscribeForEventCommand());
+        commands.put("getEvents", new GetEventsCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -48,6 +48,45 @@ public class Constants {
     public static final String GET_EVENTS_FROM_INDEX =
             "SELECT * FROM event WHERE date > now() limit ?, ?";
 
+    public static final String GET_NOT_FINISHED_EVENT_COUNT = "SELECT count(*) FROM event WHERE date > now()";
+    public static final String GET_NOT_FINISHED_EVENTS = "SELECT * FROM event WHERE date > now() ORDER BY date DESC";
+
     public static final String GET_ALL_EVENTS = "SELECT * FROM event ORDER BY date DESC";
     public static final String GET_ACCOUNT_BY_ROLE = "SELECT * FROM ACCOUNT WHERE role = ?";
+
+    public static final String GET_NOT_FINISHED_EVENTS_GROUP_BY_VISITORS =
+            "SELECT event.*, COUNT(account_id) AS account_count\n" +
+                    "FROM event LEFT JOIN event_visitor\n" +
+                    "ON event.id = event_visitor.event_id\n" +
+                    "WHERE date > now()\n" +
+                    "GROUP BY event.id\n" +
+                    "ORDER BY account_count DESC;";
+
+    public static final String GET_FINISHED_EVENTS_GROUP_BY_VISITORS =
+            "SELECT event.*, COUNT(account_id) AS account_count\n" +
+                    "FROM event LEFT JOIN event_visitor\n" +
+                    "ON event.id = event_visitor.event_id\n" +
+                    "WHERE date < now()\n" +
+                    "GROUP BY event.id\n" +
+                    "ORDER BY account_count DESC;";
+
+    public static final String GET_NOT_FINISHED_EVENTS_GROUP_BY_TOPICS =
+            "SELECT event.*, COUNT(account_id) AS topic_count\n" +
+                    "FROM event LEFT JOIN topic\n" +
+                    "ON event.id = topic.event_id\n" +
+                    "WHERE date > now()\n" +
+                    "GROUP BY event.id\n" +
+                    "ORDER BY topic_count DESC ";
+
+    public static final String GET_FINISHED_EVENTS_GROUP_BY_TOPICS =
+            "SELECT event.*, COUNT(account_id) AS topic_count\n" +
+                    "FROM event LEFT JOIN topic\n" +
+                    "ON event.id = topic.event_id\n" +
+                    "WHERE date < now()\n" +
+                    "GROUP BY event.id\n" +
+                    "ORDER BY topic_count DESC ";
+
+
+
+
 }

@@ -18,7 +18,12 @@ public class EventSubscriptionInfoCommand implements Command {
         page = (page - 1) * 5;
 
         List<Event> events = service.getEventsFromIndex(page);
+        List<Integer> pages = service.getCountOfPages();
+
+        System.out.println(page);
+
         req.setAttribute("events", events);
+        req.setAttribute("pages", pages);
 
         return Constants.EVENT_SUBSCRIPTION;
     }

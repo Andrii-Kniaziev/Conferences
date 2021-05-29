@@ -1,11 +1,13 @@
 package controller.commands;
 
-import dao.AccountDAO;
+import dao.impl.JDBCAccountDAO;
 import dao.Constants;
-import dao.EventDAO;
+import dao.impl.JDBCEventDAO;
 import dao.MyException;
 import model.entities.Account;
 import model.entities.Event;
+import model.service.AccountService;
+import model.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +17,11 @@ public class DataForTopicCreationCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
-        EventDAO dao = EventDAO.getInstance();
-        AccountDAO dao1 = AccountDAO.getInstance();
+        EventService eventService = new EventService();
+        AccountService accountService = new AccountService();
 
-        List<Event> events = dao.getAllEvents();
-        List<Account> speakers = dao1.getAccounts(Constants.ROLE_SPEAKER);
+        List<Event> events = eventService.getAllEvents(true);
+        List<Account> speakers = accountService.getAccountsByRole(Constants.ROLE_SPEAKER);
 
         req.setAttribute("events", events);
         req.setAttribute("accounts", speakers);

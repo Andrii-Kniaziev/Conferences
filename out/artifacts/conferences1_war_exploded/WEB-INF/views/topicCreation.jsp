@@ -15,22 +15,22 @@
 </head>
 <body>
 <h2>
-    Event list <br/>
+    Topic creation Form <br/>
 </h2>
-<table>
-    <tr><th>ID</th><th>Name</th><th>Description</th><th>Date</th><th>Place</th><th>Finished</th></tr>
-    <c:forEach var="i" items="${events}">
-        <tr><td>${i.id}</td>
-            <td>${i.name}</td>
-            <td>${i.description}</td>
-            <td>${i.formattedDate}</td>
-            <td>${i.place}</td>
-            <td>${i.finished}</td></tr>
-    </c:forEach>
-</table>
+<%--<table>--%>
+<%--    <tr><th>ID</th><th>Name</th><th>Description</th><th>Date</th><th>Place</th><th>Finished</th></tr>--%>
+<%--    <c:forEach var="i" items="${events}">--%>
+<%--        <tr><td>${i.id}</td>--%>
+<%--            <td>${i.name}</td>--%>
+<%--            <td>${i.description}</td>--%>
+<%--            <td>${i.formattedDate}</td>--%>
+<%--            <td>${i.place}</td>--%>
+<%--            <td>${i.finished}</td></tr>--%>
+<%--    </c:forEach>--%>
+<%--</table>--%>
 <h2>__________________________________________________________________</h2>
 <h2>
-    Speakers <br/>
+    Speakers Available <br/>
 </h2>
 <table>
     <tr><th>ID</th><th>First name</th><th>Last name</th><th>Email</th><th>Role</th></tr>

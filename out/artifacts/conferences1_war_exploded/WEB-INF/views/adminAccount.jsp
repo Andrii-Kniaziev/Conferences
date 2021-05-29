@@ -35,7 +35,12 @@
            </p>
            <p>
                <label>
-                   Дата и Время: <input type="text" name="eventDate" placeholder="yyyy-MM-dd HH:mm" required>
+                   Дата: <input type="text" name="eventDate" placeholder="yyyy-MM-dd" required>
+               </label>
+           </p>
+           <p>
+               <label>
+                   Время: <input type="text" name="eventTime" placeholder="HH:mm" required>
                </label>
            </p>
            <p>

@@ -1,6 +1,6 @@
 package controller.commands;
 
-import dao.AccountDAO;
+import dao.impl.JDBCAccountDAO;
 import dao.Constants;
 import dao.MyException;
 import model.entities.Account;
@@ -15,7 +15,7 @@ public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
         String result = "Пользователь с таким аддрессом електронной почты не зарегетрирован";
-        AccountDAO dao = AccountDAO.getInstance();
+        JDBCAccountDAO dao = JDBCAccountDAO.getInstance();
 
         String email = req.getParameter("email");
         String pass = req.getParameter("password");

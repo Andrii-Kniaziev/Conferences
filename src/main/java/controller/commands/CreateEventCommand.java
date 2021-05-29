@@ -1,16 +1,16 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.EventDAO;
+import dao.impl.JDBCEventDAO;
 import dao.MyException;
 import model.entities.Event;
+import model.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -18,11 +18,11 @@ public class CreateEventCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
         String result = "Ивент добавлен";
-        EventDAO dao = EventDAO.getInstance();
+        EventService service = new EventService();
 
         String name = req.getParameter("eventName");
         String description = req.getParameter("eventDescription");
-        String dateTime = req.getParameter("eventDate");
+        String dateTime = req.getParameter("eventDate") + " " + req.getParameter("eventTime");
         String place = req.getParameter("eventPlace");
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -43,7 +43,7 @@ public class CreateEventCommand implements Command {
 
         System.out.println(date.getTime() - new GregorianCalendar().getTimeInMillis());
 
-        dao.insertEvent(event);
+        service.insertEvent(event);
         req.setAttribute("result", result);
 
         return Constants.ADMIN_ACCOUNT;

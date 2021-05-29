@@ -35,7 +35,12 @@
            </p>
            <p>
                <label>
-                   Дата и Время: <input type="text" name="eventDate" placeholder="yyyy-MM-dd HH:mm" required>
+                   Дата: <input type="text" name="eventDate" placeholder="yyyy-MM-dd" required>
+               </label>
+           </p>
+           <p>
+               <label>
+                   Время: <input type="text" name="eventTime" placeholder="HH:mm" required>
                </label>
            </p>
            <p>
@@ -47,9 +52,19 @@
        </form>
    </div>
    <p>__________________________________________________________________________________________</p>
+   <p>Просмотреть ивенты</p>
    <form name="form5" acction="conferences">
+       <select name="eventTime" required>
+           <option value="future">Будущие</option>
+           <option value="past">Прошлые</option>
+       </select>
+       <select name="sortBy" required>
+           <option value="date">По дате</option>
+           <option value="date">По количеству топиков</option>
+           <option value="date">По количеству участников</option>
+       </select>
        <input type="hidden" name="command" value="getEvents">
-       <input type="submit" value="Показать список ивентов">
+       <input type="submit" value="Показать">
    </form>
    <p>__________________________________________________________________________________________</p>
    <form name = "form6" action="conferences">
