@@ -18,6 +18,11 @@
    <p>__________________________________________________________________________________________</p>
    <p>Результат: ${requestScope.result}</p>
    <p>__________________________________________________________________________________________</p>
+   <form name="subscribeForEvent" acction="conferences">
+       <input type="hidden" name="command" value="eventSubscriptionInfo" >
+       <input type="hidden" name="page" value="1" >
+       <input type="submit" value="Регистрация на ивенты">
+   </form>
    <form name="form3" acction="conferences">
        <input type="hidden" name="command" value="logOut">
        <input type="submit" value="Выйти">

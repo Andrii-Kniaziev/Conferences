@@ -8,6 +8,7 @@ public class Constants {
     public static final String SPEAKER_ACCOUNT = "/WEB-INF/views/speakerAccount.jsp";
     public static final String LISTENER_ACCOUNT = "/WEB-INF/views/listenerAccount.jsp";
     public static final String TOPIC_CREATION_JSP = "/WEB-INF/views/topicCreation.jsp";
+    public static final String EVENT_SUBSCRIPTION = "/WEB-INF/views/eventSubscription.jsp";
     public static final String INDEX_JSP = "index.jsp";
 
     public static final String FIELD_ID = "id";
@@ -26,17 +27,27 @@ public class Constants {
 
     public static final String LN_SEP = System.lineSeparator();
     public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/mydb?user=root&password=5321068Ask@";
+
     public static final String INSERT_ACCOUNT = "INSERT INTO account"
             + "(email, password, first_name, last_name, role)"
             + "VALUES (?, ?, ?, ?, ?)";
+
     public static final String GET_ACCOUNT = "SELECT * FROM account WHERE email = ?";
 
     public static final String INSERT_EVENT = "INSERT INTO event"
             + "(name, description, date, place, is_finished) "
             + "VALUES (?, ?, ?, ?, ?)";
+
     public static final String INSERT_TOPIC = "INSERT INTO topic"
             + "(event_id, account_id, name, description, admin_approved, speaker_approved, desigion_is_done) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    public static final String INSERT_VISIT = "INSERT INTO event_visitor(account_id, event_id) " +
+            "VALUES (?, ?)";
+
+    public static final String GET_EVENTS_FROM_INDEX =
+            "SELECT * FROM event WHERE date > now() limit ?, ?";
+
     public static final String GET_ALL_EVENTS = "SELECT * FROM event ORDER BY date DESC";
     public static final String GET_ACCOUNT_BY_ROLE = "SELECT * FROM ACCOUNT WHERE role = ?";
 }

@@ -49,25 +49,69 @@ public class EventDAO {
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(Constants.GET_ALL_EVENTS)) {
 
-            while(res.next()) {
-                int id = res.getInt(Constants.FIELD_ID);
-                String name = res.getString(Constants.FIELD_NAME);
-                String description = res.getString(Constants.FIELD_DESCRIPTION);
-                Date date = new Date(res.getTimestamp(Constants.FIELD_DATE).getTime());
-
-                String place = res.getString(Constants.FIELD_PLACE);
-                boolean isFinished = Boolean.parseBoolean(res.getString(Constants.FIELD_IS_FINISHED));
-
-                GregorianCalendar c = new GregorianCalendar();
-                c.setTimeInMillis(date.getTime());
-
-                events.add(new Event(id, name, description, c, place, isFinished ));
-            }
+            events = getEventsFromResultSet(res);
         } catch (SQLException e) {
             throw new MyException("Something went wrong with getting events from DB", e);
         }
 
         return events;
+    }
+
+    public List<Event> getEventsFrom(int index) throws MyException {
+        List<Event> events = new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(Constants.GET_EVENTS_FROM_INDEX);
+            stmt.setInt(1, index);
+            stmt.setInt(2, 5);
+            res = stmt.executeQuery();
+
+            events = getEventsFromResultSet(res);
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting events from DB", e);
+        } finally {
+            close(res);
+            close(stmt);
+            close(con);
+        }
+
+        return events;
+    }
+
+    private List<Event> getEventsFromResultSet(ResultSet res) throws SQLException {
+        List<Event> events = new ArrayList<>();
+
+        while(res.next()) {
+            int id = res.getInt(Constants.FIELD_ID);
+            String name = res.getString(Constants.FIELD_NAME);
+            String description = res.getString(Constants.FIELD_DESCRIPTION);
+            Date date = new Date(res.getTimestamp(Constants.FIELD_DATE).getTime());
+
+            String place = res.getString(Constants.FIELD_PLACE);
+            boolean isFinished = Boolean.parseBoolean(res.getString(Constants.FIELD_IS_FINISHED));
+
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTimeInMillis(date.getTime());
+
+            events.add(new Event(id, name, description, c, place, isFinished ));
+        }
+
+        return events;
+    }
+
+    public void close(AutoCloseable ac) {
+        if(ac != null) {
+            try {
+                ac.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
 //    public static void main(String[] args) {
