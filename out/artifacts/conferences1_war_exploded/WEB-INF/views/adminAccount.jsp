@@ -73,6 +73,11 @@
        <input type="submit" value="Создать топик">
    </form>
    <p>__________________________________________________________________________________________</p>
+   <form name = "form6" action="conferences">
+       <input type="hidden" name="command" value="offerTopicToSpeakerInfo">
+       <input type="submit" value="Предложить топик спикеру">
+   </form>
+   <p>__________________________________________________________________________________________</p>
    <form name="form3" acction="conferences">
        <input type="hidden" name="command" value="logOut">
        <input type="submit" value="Выйти">

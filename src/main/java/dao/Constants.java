@@ -11,6 +11,7 @@ public class Constants {
     public static final String EVENT_SUBSCRIPTION = "/WEB-INF/views/eventSubscription.jsp";
     public static final String SORTED_EVENTS = "/WEB-INF/views/sortedEvents.jsp";
     public static final String OFFERED_TOPICS = "/WEB-INF/views/offeredTopics.jsp";
+    public static final String OFFER_TOPIC_TO_SPEAKER_INFO = "/WEB-INF/views/offerTopicToSpeaker.jsp";
     public static final String INDEX_JSP = "index.jsp";
 
     public static final String FIELD_ID = "id";
@@ -119,6 +120,10 @@ public class Constants {
                     "desigion_is_done = 'false', " +
                     "admin_approved = 'false' " +
                     "WHERE id = ?";
+
+    public static final String FIND_TOPICS_WITHOUT_SPEAKERS =
+            "SELECT * FROM topic " +
+                    "WHERE account_id is null AND event_id IN (SELECT id FROM event WHERE date > now())";
 
 
 

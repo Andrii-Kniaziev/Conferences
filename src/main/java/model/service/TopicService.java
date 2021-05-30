@@ -26,6 +26,12 @@ public class TopicService {
         }
     }
 
+    public List<Topic> getTopicsWithoutSpeakers() throws MyException {
+        try(TopicDAO dao = daoFactory.createTopicDao()) {
+            return dao.getTopicsWithoutSpeakers();
+        }
+    }
+
     public boolean offeredTopicDecision(String decision, int topicID) {
         String query = decision.equals("yes") ?
                 Constants.AGREE_FOR_OFFERED_TOPIC : Constants.DISAGREE_FOR_OFFERED_TOPIC;

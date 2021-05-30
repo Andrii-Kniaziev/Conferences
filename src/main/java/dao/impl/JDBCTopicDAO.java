@@ -35,6 +35,21 @@ public class JDBCTopicDAO implements TopicDAO {
         return true;
     }
 
+    public List<Topic> getTopicsWithoutSpeakers() throws MyException {
+        List<Topic> noSpeacersTopics;
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet res = stmt.executeQuery(Constants.FIND_TOPICS_WITHOUT_SPEAKERS);
+
+            noSpeacersTopics = new TopicMapper().getTopicsFromResSet(res);
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting of topics without speakers", e);
+        }
+
+        return noSpeacersTopics;
+    }
+
     public List<Topic> getOfferedByAdmin(int accountID) throws MyException {
         List<Topic> offeredTopics;
         ResultSet res = null;

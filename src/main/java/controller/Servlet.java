@@ -1,7 +1,6 @@
 package controller;
 
 import controller.commands.*;
-import dao.Constants;
 import dao.MyException;
 
 import javax.servlet.ServletConfig;
@@ -40,6 +39,8 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("getEvents", new GetEventsCommand());
         commands.put("showOfferedTopics", new ShowOfferedTopicsCommand());
         commands.put("offeredTopicDecision", new OfferedTopicDecisionCommand());
+        commands.put("offerTopicToSpeakerInfo", new OfferTopicInfoCommand());
+        commands.put("offerTopicToSpeaker", new SubmitTopicToSpeakerCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
