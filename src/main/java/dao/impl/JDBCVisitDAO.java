@@ -14,13 +14,8 @@ public class JDBCVisitDAO implements VisitDAO {
         this.con = con;
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(Constants.CONNECTION_URL);
-    }
-
     public boolean insertVisit(Visit visit) throws MyException {
-        try (//Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(Constants.INSERT_VISIT)) {
+        try (PreparedStatement stmt = con.prepareStatement(Constants.INSERT_VISIT)) {
 
             stmt.setInt(1, visit.getAccountID());
             stmt.setInt(2, visit.getEventID());

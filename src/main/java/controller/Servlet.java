@@ -38,6 +38,8 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("eventSubscriptionInfo", new EventSubscriptionInfoCommand());
         commands.put("subscribeForEvent", new SubscribeForEventCommand());
         commands.put("getEvents", new GetEventsCommand());
+        commands.put("showOfferedTopics", new ShowOfferedTopicsCommand());
+        commands.put("offeredTopicDecision", new OfferedTopicDecisionCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

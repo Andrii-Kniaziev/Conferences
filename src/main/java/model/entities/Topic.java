@@ -10,6 +10,18 @@ public class Topic {
     private boolean speakerApproved;
     private boolean deсisionDone;
 
+    public Topic(int id, int eventId, int speakerId, String name, String description,
+                 boolean adminApproved, boolean speakerApproved, boolean deсisionDone) {
+        this.id = id;
+        this.eventId = eventId;
+        this.speakerId = speakerId;
+        this.name = name;
+        this.description = description;
+        this.adminApproved = adminApproved;
+        this.speakerApproved = speakerApproved;
+        this.deсisionDone = deсisionDone;
+    }
+
     public Topic(int eventId, int speakerId, String name, String description, boolean adminApproved, boolean speakerApproved) {
         this.eventId = eventId;
         this.speakerId = speakerId;
@@ -21,6 +33,8 @@ public class Topic {
             deсisionDone = true;
         }
     }
+
+    public int getId() { return id; }
 
     public int getEventId() {
         return eventId;
@@ -48,5 +62,10 @@ public class Topic {
 
     public boolean isDeсisionDone() {
         return deсisionDone;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + eventId + " " + speakerId + " " + name;
     }
 }

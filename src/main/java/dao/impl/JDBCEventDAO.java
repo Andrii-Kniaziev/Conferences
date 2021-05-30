@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.Constants;
+import dao.DaoFactory;
 import dao.EventDAO;
 import dao.MyException;
 import dao.mapper.EventMapper;
@@ -17,13 +18,8 @@ public class JDBCEventDAO implements EventDAO {
         this.con = con;
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(Constants.CONNECTION_URL);
-    }
-
     public boolean insertEvent(Event event) throws MyException {
-        try (//Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(Constants.INSERT_EVENT)) {
+        try (PreparedStatement stmt = con.prepareStatement(Constants.INSERT_EVENT)) {
             Timestamp ts = new Timestamp(event.getCalendar().getTimeInMillis());
 
             stmt.setString(1, event.getName());
@@ -39,14 +35,11 @@ public class JDBCEventDAO implements EventDAO {
         return true;
     }
 
-    public List<Event> getAllEvents(boolean isNotFinished) throws MyException {
-        List<Event> events = new ArrayList<>();
+    public List<Event> getAllEvents() throws MyException {
+        List<Event> events;
 
-        String query = isNotFinished ? Constants.GET_NOT_FINISHED_EVENTS : Constants.GET_ALL_EVENTS;
-
-        try(//Connection con = getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet res = stmt.executeQuery(query)) {
+        try(Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(Constants.GET_NOT_FINISHED_EVENTS)) {
 
             events = new EventMapper().getEventsFromResultSet(res);
         } catch (SQLException e) {
@@ -56,15 +49,13 @@ public class JDBCEventDAO implements EventDAO {
         return events;
     }
 
-    public List<Event> getEventsFrom(int index) throws MyException {
+    public List<Event> getEventsFrom(int index, String query) throws MyException {
         List<Event> events = new ArrayList<>();
 
-        //Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
         try {
-            con = getConnection();
-            stmt = con.prepareStatement(Constants.GET_EVENTS_FROM_INDEX);
+            stmt = con.prepareStatement(query);
             stmt.setInt(1, index);
             stmt.setInt(2, 5);
             res = stmt.executeQuery();
@@ -76,15 +67,16 @@ public class JDBCEventDAO implements EventDAO {
         } finally {
             close(res);
             close(stmt);
-            //close(con);
         }
 
         return events;
     }
 
-    public int getNotFinishedEventCount() {
+    public int getEventCount(boolean isNotFinished) {
+        String query = isNotFinished ? Constants.GET_NOT_FINISHED_EVENT_COUNT : Constants.GET_FINISHED_EVENT_COUNT;
+
         try(Statement stmt = con.createStatement();
-        ResultSet res = stmt.executeQuery(Constants.GET_NOT_FINISHED_EVENT_COUNT)) {
+        ResultSet res = stmt.executeQuery(query)) {
 
             if(res.next()) {
                 return res.getInt("count(*)");
@@ -105,18 +97,29 @@ public class JDBCEventDAO implements EventDAO {
     }
 
 //    public static void main(String[] args) {
-//        List<Event> events = null;
+//        List<Event> evs = null;
 //
-//        EventDAO dao = EventDAO.getInstance();
+//        JDBCEventDAO dao = (JDBCEventDAO) DaoFactory.getInstance().createEventDao();
+//
 //
 //        try {
-//            events = dao.getAllEvents();
+//            evs = dao.getEventsFrom(0, Constants.GET_FINISHED_EVENTS_LIMIT);
 //        } catch (MyException e) {
-//            System.out.println(e.getCause());
+//            e.printStackTrace();
 //        }
 //
-//        for (Event e : events) {
+//
+//        for (Event e : evs) {
 //            System.out.println(e);
 //        }
-//    }
+
+//        EventMapper em = new EventMapper();
+//
+//        System.out.println(em.getQueryForEventSort("future", "date"));
+//        System.out.println("**********************");
+//        System.out.println(em.getQueryForEventSort("future", "topicNumber"));
+//        System.out.println("**********************");
+//        System.out.println(em.getQueryForEventSort("future", "listenersNumber"));
+//        System.out.println("**********************");
+    //}
 }

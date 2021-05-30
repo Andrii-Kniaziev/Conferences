@@ -1,8 +1,10 @@
 package model.service;
 
+import dao.Constants;
 import dao.DaoFactory;
 import dao.EventDAO;
 import dao.MyException;
+import dao.mapper.EventMapper;
 import model.entities.Event;
 
 import java.util.ArrayList;
@@ -13,14 +15,21 @@ public class EventService {
 
     public List<Event> getEventsFromIndex(int index) throws MyException {
         try (EventDAO dao = daoFactory.createEventDao()) {
-            return dao.getEventsFrom(index);
+            return dao.getEventsFrom(index, Constants.GET_EVENTS_FROM_INDEX);
         }
     }
 
-    public List<Integer> getCountOfPages() {
+    public List<Event> getSortedEventsFromIndex(int index, String time, String sorting) throws MyException {
+        String query = new EventMapper().getQueryForEventSort(time, sorting);
+        try (EventDAO dao = daoFactory.createEventDao()) {
+            return dao.getEventsFrom(index, query);
+        }
+    }
+
+    public List<Integer> getCountOfPages(boolean isNotFinished) {
         List<Integer> list = new ArrayList<>();
         try (EventDAO dao = daoFactory.createEventDao()) {
-            int count = dao.getNotFinishedEventCount();
+            int count = dao.getEventCount(isNotFinished);
             int temp = count / 5;
 
             if((count - temp * 5) != 0) {
@@ -35,9 +44,9 @@ public class EventService {
         return list;
     }
 
-    public List<Event> getAllEvents(boolean isNotFinished) throws MyException {
+    public List<Event> getAllEvents() throws MyException {
         try (EventDAO dao = daoFactory.createEventDao()) {
-            return dao.getAllEvents(isNotFinished);
+            return dao.getAllEvents();
         }
     }
 

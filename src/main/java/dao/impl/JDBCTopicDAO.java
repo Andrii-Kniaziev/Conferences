@@ -1,11 +1,14 @@
 package dao.impl;
 
 import dao.Constants;
+import dao.DaoFactory;
 import dao.MyException;
 import dao.TopicDAO;
+import dao.mapper.TopicMapper;
 import model.entities.Topic;
 
 import java.sql.*;
+import java.util.List;
 
 public class JDBCTopicDAO implements TopicDAO {
     private Connection con;
@@ -14,13 +17,8 @@ public class JDBCTopicDAO implements TopicDAO {
         this.con = con;
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(Constants.CONNECTION_URL);
-    }
-
     public boolean insertTopic(Topic topic) throws MyException {
-        try (//Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(Constants.INSERT_TOPIC)) {
+        try (PreparedStatement stmt = con.prepareStatement(Constants.INSERT_TOPIC)) {
 
             stmt.setInt(1, topic.getEventId());
             stmt.setInt(2, topic.getSpeakerId());
@@ -37,12 +35,60 @@ public class JDBCTopicDAO implements TopicDAO {
         return true;
     }
 
+    public List<Topic> getOfferedByAdmin(int accountID) throws MyException {
+        List<Topic> offeredTopics;
+        ResultSet res = null;
+
+        try (PreparedStatement stmt = con.prepareStatement(Constants.CHECK_OFFERED_TOPICS)) {
+            stmt.setInt(1, accountID);
+            res = stmt.executeQuery();
+
+            offeredTopics = new TopicMapper().getTopicsFromResSet(res);
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting of topics", e);
+        } finally {
+            close(res);
+        }
+
+        return offeredTopics;
+    }
+
+    public boolean desigionForOfferedTopic(int topicID, String query) throws MyException {
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, topicID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with updating of topics", e);
+        }
+
+        return true;
+    }
+
     @Override
-    public void close()  {
+    public void close() {
         try {
             con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+//    public static void main(String[] args) {
+//        List<Topic> tops = null;
+//
+//        JDBCTopicDAO dao = (JDBCTopicDAO) DaoFactory.getInstance().createTopicDao();
+//
+//        try {
+//            tops = dao.getOfferedByAdmin(18);
+//        } catch (MyException e) {
+//            e.printStackTrace();
+//        }
+//
+//        for (Topic t : tops) {
+//            System.out.println(t);
+//        }
+//    }
 }

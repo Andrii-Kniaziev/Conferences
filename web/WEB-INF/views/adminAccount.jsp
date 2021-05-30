@@ -60,10 +60,11 @@
        </select>
        <select name="sortBy" required>
            <option value="date">По дате</option>
-           <option value="date">По количеству топиков</option>
-           <option value="date">По количеству участников</option>
+           <option value="topicNumber">По количеству топиков</option>
+           <option value="listenersNumber">По количеству участников</option>
        </select>
        <input type="hidden" name="command" value="getEvents">
+       <input type="hidden" name="page" value="1">
        <input type="submit" value="Показать">
    </form>
    <p>__________________________________________________________________________________________</p>

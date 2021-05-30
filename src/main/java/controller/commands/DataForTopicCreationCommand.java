@@ -20,7 +20,7 @@ public class DataForTopicCreationCommand implements Command {
         EventService eventService = new EventService();
         AccountService accountService = new AccountService();
 
-        List<Event> events = eventService.getAllEvents(true);
+        List<Event> events = eventService.getAllEvents();
         List<Account> speakers = accountService.getAccountsByRole(Constants.ROLE_SPEAKER);
 
         req.setAttribute("events", events);

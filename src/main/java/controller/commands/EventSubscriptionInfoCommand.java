@@ -4,7 +4,6 @@ import dao.Constants;
 import dao.MyException;
 import model.entities.Event;
 import model.service.EventService;
-import model.service.TopicService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ public class EventSubscriptionInfoCommand implements Command {
         page = (page - 1) * 5;
 
         List<Event> events = service.getEventsFromIndex(page);
-        List<Integer> pages = service.getCountOfPages();
+        List<Integer> pages = service.getCountOfPages(true);
 
         System.out.println(page);
 
