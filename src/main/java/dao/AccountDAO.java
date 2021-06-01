@@ -11,5 +11,4 @@ public interface AccountDAO extends SuperDAO {
 
     List<Account> getAccounts(String role) throws MyException;
 
-
 }

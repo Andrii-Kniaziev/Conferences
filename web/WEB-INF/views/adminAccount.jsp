@@ -14,23 +14,23 @@
    <h2>Hello Admin!</h2>
    <p>${sessionScope.role}</p>
    <p>Ваш id: ${sessionScope.id}</p>
-   <p>Ваше имя: ${sessionScope.name}</p>
+   <p>Ваше ім'я: ${sessionScope.name}</p>
    <p>__________________________________________________________________________________________</p>
-   <p>Результат: ${requestScope.result}</p>
+   <p>Результат дії: ${requestScope.result}</p>
    <p>__________________________________________________________________________________________</p>
    <br/>
    <div>
-   <p>Форма создания нового ивента</p>
+   <p>Форма створення нового заходу</p>
        <form name="form4" method="post" action="conferences">
            <input type="hidden" name="command" value="createEvent">
            <p>
                <label>
-                   Имя ивента: <input type="text" name="eventName" required>
+                   Ім'я івента: <input type="text" name="eventName" required>
                </label>
            </p>
            <p>
                <label>
-                   Описание: <input type="text" name="eventDescription" required>
+                   Опис: <input type="text" name="eventDescription" required>
                </label>
            </p>
            <p>
@@ -40,47 +40,47 @@
            </p>
            <p>
                <label>
-                   Время: <input type="text" name="eventTime" placeholder="HH:mm" required>
+                   Час: <input type="text" name="eventTime" placeholder="HH:mm" required>
                </label>
            </p>
            <p>
                <label>
-                   Место: <input type="text" name="eventPlace" required>
+                   Місце: <input type="text" name="eventPlace" required>
                </label>
            </p>
-           <input type="submit" value="Создать">
+           <input type="submit" value="Створити">
        </form>
    </div>
    <p>__________________________________________________________________________________________</p>
-   <p>Просмотреть ивенты</p>
+   <p>Переглянути івенти</p>
    <form name="form5" acction="conferences">
        <select name="eventTime" required>
-           <option value="future">Будущие</option>
-           <option value="past">Прошлые</option>
+           <option value="future">Майбутні</option>
+           <option value="past">Минулі</option>
        </select>
        <select name="sortBy" required>
-           <option value="date">По дате</option>
-           <option value="topicNumber">По количеству топиков</option>
-           <option value="listenersNumber">По количеству участников</option>
+           <option value="date">За датою</option>
+           <option value="topicNumber">За кількістю доповідей</option>
+           <option value="listenersNumber">За кількістю слухачів</option>
        </select>
        <input type="hidden" name="command" value="getEvents">
        <input type="hidden" name="page" value="1">
-       <input type="submit" value="Показать">
+       <input type="submit" value="Переглянути">
    </form>
    <p>__________________________________________________________________________________________</p>
    <form name = "form6" action="conferences">
        <input type="hidden" name="command" value="topicCreateForm">
-       <input type="submit" value="Создать топик">
+       <input type="submit" value="Створити доповідь">
    </form>
    <p>__________________________________________________________________________________________</p>
    <form name = "form6" action="conferences">
        <input type="hidden" name="command" value="offerTopicToSpeakerInfo">
-       <input type="submit" value="Предложить топик спикеру">
+       <input type="submit" value="Запропонувати доповідь спікеру">
    </form>
    <p>__________________________________________________________________________________________</p>
    <form name="form3" acction="conferences">
        <input type="hidden" name="command" value="logOut">
-       <input type="submit" value="Выйти">
+       <input type="submit" value="Вийти">
    </form>
 </body>
 </html>

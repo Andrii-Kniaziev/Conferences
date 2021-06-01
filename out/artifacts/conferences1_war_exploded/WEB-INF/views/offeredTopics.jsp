@@ -12,15 +12,15 @@
     <title>Offered topics</title>
 </head>
 <body>
-<h2>Предложения провести топик</h2>
+<h2>Пропозиції провести доповідь</h2>
 <table>
     <tr>
-        <th>Topic ID</th>
-        <th>Event ID</th>
-        <th>Speaker ID</th>
-        <th>Topic`s name</th>
-        <th>Description</th>
-        <th>Agree / Disagree</th>
+        <th>ID доповіді</th>
+        <th>ID івента</th>
+        <th>Ваш ID</th>
+        <th>Назва доповіді</th>
+        <th>Опис доповіді</th>
+        <th>Погодитися / Відмовитися</th>
     </tr>
     <c:forEach var="i" items="${offeredTopics}">
         <tr>
@@ -34,18 +34,18 @@
                     <input type="hidden" name="command" value="offeredTopicDecision">
                     <input type="hidden" name="decision" value="yes">
                     <input type="hidden" name="topicID" value="${i.id}">
-                    <input type="submit" value="Agree">
+                    <input type="submit" value="Так">
                 </form>
                 <form name="eventSubscriptionForm" action="conferences">
                     <input type="hidden" name="command" value="offeredTopicDecision">
                     <input type="hidden" name="decision" value="no">
                     <input type="hidden" name="topicID" value="${i.id}">
-                    <input type="submit" value="DisAgree">
+                    <input type="submit" value="Ні">
                 </form>
             </td>
         </tr>
     </c:forEach>
 </table>
-<a href="conferences?command=returnToAcc">На главную</a>
+<a href="conferences?command=returnToAcc">На головну</a>
 </body>
 </html>

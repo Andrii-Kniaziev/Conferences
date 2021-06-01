@@ -15,4 +15,19 @@ public class AccountService {
             return dao.getAccounts(role);
         }
     }
+
+    public boolean createNewAccount(Account account) throws MyException {
+        try(AccountDAO dao = daoFactory.createAccountDao()) {
+            dao.insertAccount(account);
+        }
+        return true;
+    }
+
+    public Account getAccountByEmail(String email) {
+        Account account = null;
+        try(AccountDAO dao = daoFactory.createAccountDao()) {
+            account = dao.getAccountByEmail(email);
+        }
+        return account;
+    }
 }

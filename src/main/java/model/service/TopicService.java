@@ -43,4 +43,13 @@ public class TopicService {
         }
         return true;
     }
+
+    public boolean offerEmptyTopicToSpeaker(int topicID, int speakerID) {
+        try(TopicDAO dao = daoFactory.createTopicDao()) {
+            dao.offerEmptyTopic(topicID, speakerID);
+        } catch (MyException ex) {
+            return false;
+        }
+        return true;
+    }
 }

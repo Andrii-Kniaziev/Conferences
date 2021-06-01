@@ -18,25 +18,8 @@ public class JDBCAccountDAO implements AccountDAO {
         this.con = con;
     }
 
-    private static JDBCAccountDAO dao;
-
-    private JDBCAccountDAO() {
-    }
-
-    public static synchronized JDBCAccountDAO getInstance() {
-        if (dao == null) {
-            dao = new JDBCAccountDAO();
-        }
-        return dao;
-    }
-
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(Constants.CONNECTION_URL);
-    }
-
     public boolean insertAccount(Account account) throws MyException {
-        try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(Constants.INSERT_ACCOUNT)) {
+        try (PreparedStatement stmt = con.prepareStatement(Constants.INSERT_ACCOUNT)) {
 
             stmt.setString(1, account.getEmail());
             stmt.setString(2, account.getPassword());
@@ -52,14 +35,11 @@ public class JDBCAccountDAO implements AccountDAO {
     }
 
     public Account getAccountByEmail(String email) {
-
         Account account = null;
-
-        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
+
         try {
-            con = getConnection();
             stmt = con.prepareStatement(Constants.GET_ACCOUNT);
             stmt.setString(1, email);
             res = stmt.executeQuery();
@@ -74,7 +54,6 @@ public class JDBCAccountDAO implements AccountDAO {
         } finally {
             close(res);
             close(stmt);
-            close(con);
         }
 
         return account;
@@ -82,12 +61,10 @@ public class JDBCAccountDAO implements AccountDAO {
 
     public List<Account> getAccounts(String role) throws MyException {
         List<Account> speakers = new ArrayList<>();
-        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
 
         try {
-            con = getConnection();
             stmt = con.prepareStatement(Constants.GET_ACCOUNT_BY_ROLE);
             stmt.setString(1, role);
             res = stmt.executeQuery();
@@ -102,7 +79,6 @@ public class JDBCAccountDAO implements AccountDAO {
         } finally {
             close(res);
             close(stmt);
-            close(con);
         }
 
         return speakers;

@@ -12,15 +12,15 @@
     <title>Offer Topic to Speaker</title>
 </head>
 <body>
-<h2>Предложить провести топик</h2>
+<h2>Запропонувати доповідь спікеру</h2>
 <table>
     <tr>
-        <th>Topic ID</th>
-        <th>Event ID</th>
-        <th>Speaker ID</th>
-        <th>Topic`s name</th>
-        <th>Description</th>
-        <th>Choose Speaker</th>
+        <th>ID доповіді</th>
+        <th>ID заходу</th>
+        <th>ID спікера</th>
+        <th>Назва доповіді</th>
+        <th>Опис доповіді</th>
+        <th>Обрати спікера</th>
     </tr>
     <c:forEach var="i" items="${availableTopics}">
         <tr>
@@ -39,12 +39,12 @@
                     </select>
                     <input type="hidden" name="command" value="offerTopicToSpeaker">
                     <input type="hidden" name="topicID" value="${i.id}">
-                    <input type="submit" value="Choose">
+                    <input type="submit" value="Обрати">
                 </form>
             </td>
         </tr>
     </c:forEach>
 </table>
-<a href="conferences?command=returnToAcc">На главную</a>
+<a href="conferences?command=returnToAcc">На головну</a>
 </body>
 </html>

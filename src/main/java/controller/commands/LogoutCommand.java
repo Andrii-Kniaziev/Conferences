@@ -15,6 +15,11 @@ public class LogoutCommand implements Command {
         session.setAttribute("role", Role.UNKNOWN.getValue());
 
         CommandUtility.removeUserFromAuthorised(req, (String) session.getAttribute(Constants.FIELD_ID));
+
+        if(checkLanguageEN(req)) {
+            return Constants.INDEX_EN_JSP;
+        }
+
         return Constants.INDEX_JSP;
     }
 }

@@ -14,7 +14,7 @@
 <h1>Error</h1>
 <p>${requestScope.error}</p>
 <div>
-    <a href="registration.jsp">Регистрация</a>
+    <a href="registration.jsp">На сторінку реєстрації</a>
 </div>
 </body>
 </html>

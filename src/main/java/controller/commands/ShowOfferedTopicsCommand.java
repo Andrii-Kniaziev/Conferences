@@ -19,6 +19,10 @@ public class ShowOfferedTopicsCommand implements Command {
 
         req.setAttribute("offeredTopics", offeredTopics);
 
+        if(checkLanguageEN(req)) {
+            return Constants.OFFERED_TOPICS_EN;
+        }
+
         return Constants.OFFERED_TOPICS;
     }
 }

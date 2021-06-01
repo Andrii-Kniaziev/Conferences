@@ -15,14 +15,6 @@ import java.util.Map;
 public class Servlet extends javax.servlet.http.HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
 
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void init(ServletConfig config) throws ServletException {
         config.getServletContext()
                 .setAttribute("loggedUsers", new HashSet<String>());
@@ -41,6 +33,8 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("offeredTopicDecision", new OfferedTopicDecisionCommand());
         commands.put("offerTopicToSpeakerInfo", new OfferTopicInfoCommand());
         commands.put("offerTopicToSpeaker", new SubmitTopicToSpeakerCommand());
+        commands.put("changeLang", new ChangeLanguageCommand());
+        commands.put("unsubscribeFromEvent", new UnsubscribeFromEventCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +51,6 @@ public class Servlet extends javax.servlet.http.HttpServlet {
             throws ServletException, IOException {
         String address = "WEB-INF/views/error.jsp";
         String commandName = request.getParameter("command");
-
-        System.out.println("Command is: " + commandName);
 
         Command command = commands.get(commandName);
 

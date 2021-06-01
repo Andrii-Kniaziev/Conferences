@@ -8,28 +8,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Регистрация</title>
+    <title>Реєстрація</title>
 </head>
 <body>
 <div align="center">
-    <h1>Форма регистрации аккаунта</h1>
+    <h1>Форма реєстрації користувача</h1>
     <form name="Form1" method="post" action="conferences">
         <input type="hidden" name="command" value="register">
         <table style="width: 80%">
             <tr>
-                <td>Имя</td>
+                <td>Ім'я</td>
                 <td>
                     <input type="text" name="first_name" required>
                 </td>
             </tr>
             <tr>
-                <td>Фамилия</td>
+                <td>Прізвище</td>
                 <td>
                     <input type="text" name="last_name" required>
                 </td>
             </tr>
             <tr>
-                <td>Имейл</td>
+                <td>Імейл</td>
                 <td>
                     <input type="email" name="email" required>
                 </td>
@@ -51,8 +51,11 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Зарегистрироваться">
+        <input type="submit" value="Зареєструватися">
     </form>
+</div>
+<div>
+    <a href="index.jsp">На сторінку логіну</a>
 </div>
 </body>
 </html>

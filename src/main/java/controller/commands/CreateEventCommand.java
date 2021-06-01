@@ -13,11 +13,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 
 public class CreateEventCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
-        String result = "Ивент добавлен";
+        Properties pr = getProperties(req);
+
+        String result = pr.getProperty("eventCreated");
         EventService service = new EventService();
 
         String name = req.getParameter("eventName");
@@ -32,19 +35,20 @@ public class CreateEventCommand implements Command {
         try {
             date = df.parse(dateTime);
         } catch (ParseException e) {
-            result = "Неверный формат поля \"Дата и Время\"";
+            result = pr.getProperty("wrongDateTime");
             req.setAttribute("result", result);
             return Constants.ADMIN_ACCOUNT;
         }
 
         cal.setTime(date);
         boolean isFinished = cal.getTimeInMillis() < new GregorianCalendar().getTimeInMillis();
-        Event event = new Event(name, description, cal, place, isFinished);
 
-        System.out.println(date.getTime() - new GregorianCalendar().getTimeInMillis());
-
-        service.insertEvent(event);
+        service.insertEvent(new Event(name, description, cal, place, isFinished));
         req.setAttribute("result", result);
+
+        if(checkLanguageEN(req)) {
+            return Constants.ADMIN_ACCOUNT_EN;
+        }
 
         return Constants.ADMIN_ACCOUNT;
     }

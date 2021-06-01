@@ -26,6 +26,10 @@ public class DataForTopicCreationCommand implements Command {
         req.setAttribute("events", events);
         req.setAttribute("accounts", speakers);
 
+        if(checkLanguageEN(req)) {
+            return Constants.TOPIC_CREATION_JSP_EN;
+        }
+
         return Constants.TOPIC_CREATION_JSP;
     }
 }

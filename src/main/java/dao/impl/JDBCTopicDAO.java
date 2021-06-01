@@ -69,6 +69,20 @@ public class JDBCTopicDAO implements TopicDAO {
         return offeredTopics;
     }
 
+    public boolean offerEmptyTopic(int topicID, int speakerID) throws MyException {
+        try (PreparedStatement stmt = con.prepareStatement(Constants.OFFER_EMPTY_TOPIC_TO_SPEAKER)) {
+            stmt.setInt(1, speakerID);
+            stmt.setInt(2, topicID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with updating of topics", e);
+        }
+
+        return true;
+    }
+
     public boolean desigionForOfferedTopic(int topicID, String query) throws MyException {
         try (PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setInt(1, topicID);

@@ -12,10 +12,10 @@
     <title>SortedEvents</title>
 </head>
 <body>
-<h2>Events</h2>
+<h2>Заходи</h2>
 <h2>__________________________________________________________________</h2>
 <table>
-    <tr><th>ID</th><th>Name</th><th>Description</th><th>Date</th><th>Place</th><th>Finished</th></tr>
+    <tr><th>ID</th><th>Назва</th><th>Опис</th><th>Дата проведення</th><th>Місце</th><th>Завершений</th></tr>
     <c:forEach var="i" items="${events}">
         <tr><td>${i.id}</td>
             <td>${i.name}</td>
@@ -29,6 +29,6 @@
     <a href="conferences?command=getEvents&eventTime=${requestScope.eventTime}&sortBy=${requestScope.sortBy}&page=${i}">${i}</a>
 </c:forEach>
 <h2>__________________________________________________________________</h2>
-<a href="conferences?command=returnToAcc">На главную</a>
+<a href="conferences?command=returnToAcc">На головну</a>
 </body>
 </html>

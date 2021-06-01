@@ -13,4 +13,6 @@ public interface TopicDAO extends SuperDAO {
     public boolean desigionForOfferedTopic(int topicID, String query) throws MyException;
 
     public List<Topic> getTopicsWithoutSpeakers() throws MyException;
+
+    public boolean offerEmptyTopic(int topicID, int speakerID) throws MyException;
 }

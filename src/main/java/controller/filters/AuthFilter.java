@@ -1,5 +1,6 @@
 package controller.filters;
 
+import controller.commands.Command;
 import dao.Constants;
 import model.entities.Role;
 
@@ -28,11 +29,19 @@ public class AuthFilter implements Filter {
         String role = (String) session.getAttribute("role");
         String command = req.getParameter("command");
 
-        System.out.println("Command name from FILTER: " + command);
+        if(req.getSession().getAttribute("language") == null) {
+            req.getSession().setAttribute("language", "UA");
+        }
+
+        String warning = req.getSession().getAttribute("language").equals(Constants.UA) ?
+                "Для такої дії будьласка розлогінтеся" :
+                "For such an action logout please";
 
         if(role != null && !role.equals(Role.UNKNOWN.getValue())
-                && (command.equals("login") || command.equals("register"))) {
-            req.setAttribute("result", "Для выполнения таких действий, разлогиньтесь");
+                && (command.equals("login")
+                || command.equals("register")
+                || command.equals("changeLang"))) {
+            req.setAttribute("result", warning);
             redirectToAccount(req, res, role);
         } else {
             filterChain.doFilter(request, response);
@@ -47,12 +56,38 @@ public class AuthFilter implements Filter {
 
     public void redirectToAccount(HttpServletRequest req, HttpServletResponse resp, String role)
             throws ServletException, IOException {
-        if ("admin".equals(role)) {
+        boolean isUA = req.getSession().getAttribute("language").equals(Constants.UA);
+
+        if(isUA && Constants.ROLE_ADMIN.equals(role)) {
             req.getRequestDispatcher(Constants.ADMIN_ACCOUNT).forward(req, resp);
-        } else if ("listener".equals(role)) {
-            req.getRequestDispatcher(Constants.LISTENER_ACCOUNT).forward(req, resp);
-        } else {
+        }
+
+        if(isUA && Constants.ROLE_SPEAKER.equals(role)) {
             req.getRequestDispatcher(Constants.SPEAKER_ACCOUNT).forward(req, resp);
         }
+
+        if(isUA && Constants.ROLE_LISTENER.equals(role)) {
+            req.getRequestDispatcher(Constants.LISTENER_ACCOUNT).forward(req, resp);
+        }
+
+        if(Constants.ROLE_ADMIN.equals(role)) {
+            req.getRequestDispatcher(Constants.ADMIN_ACCOUNT_EN).forward(req, resp);
+        }
+
+        if(Constants.ROLE_SPEAKER.equals(role)) {
+            req.getRequestDispatcher(Constants.SPEAKER_ACCOUNT_EN).forward(req, resp);
+        }
+
+        if(Constants.ROLE_LISTENER.equals(role)) {
+            req.getRequestDispatcher(Constants.LISTENER_ACCOUNT_EN).forward(req, resp);
+        }
+
+//        if ("admin".equals(role)) {
+//            req.getRequestDispatcher(Constants.ADMIN_ACCOUNT).forward(req, resp);
+//        } else if ("listener".equals(role)) {
+//            req.getRequestDispatcher(Constants.LISTENER_ACCOUNT).forward(req, resp);
+//        } else {
+//            req.getRequestDispatcher(Constants.SPEAKER_ACCOUNT).forward(req, resp);
+//        }
     }
 }

@@ -15,14 +15,10 @@ public class GetEventsCommand implements Command {
         String sorting = req.getParameter("sortBy");
         String time = req.getParameter("eventTime");
 
-        System.out.println(sorting + " " + time);
-
         int page = Integer.parseInt(req.getParameter("page"));
         page = (page - 1) * 5;
 
         boolean isNotFinished = time.equals("future");
-        System.out.println("Is not finished: " + isNotFinished);
-
         EventService service = new EventService();
 
         List<Integer> pages = service.getCountOfPages(isNotFinished);
@@ -32,6 +28,10 @@ public class GetEventsCommand implements Command {
         req.setAttribute("pages", pages);
         req.setAttribute("sortBy", sorting);
         req.setAttribute("eventTime", time);
+
+        if(checkLanguageEN(req)) {
+            return Constants.SORTED_EVENTS_EN;
+        }
 
         return Constants.SORTED_EVENTS;
     }

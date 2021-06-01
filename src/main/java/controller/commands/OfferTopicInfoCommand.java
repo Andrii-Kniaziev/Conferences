@@ -23,6 +23,10 @@ public class OfferTopicInfoCommand implements Command {
         req.setAttribute("availableTopics", topicsWithoutSpeakers);
         req.setAttribute("accounts", speakers);
 
+        if(checkLanguageEN(req)) {
+            return Constants.OFFER_TOPIC_TO_SPEAKER_INFO_EN;
+        }
+
         return Constants.OFFER_TOPIC_TO_SPEAKER_INFO;
     }
 }

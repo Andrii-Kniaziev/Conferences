@@ -1,18 +1,29 @@
 package dao;
 
 public class Constants {
-    public static final String FORWARD = "forward";
+    public static final String UA = "UA";
+    public static final String EN = "EN";
 
     public static final String REGISTER_RESULT = "/WEB-INF/views/registration-result.jsp";
+    public static final String REGISTER_RESULT_EN = "/WEB-INF/views_en/registration-result.jsp";
     public static final String ADMIN_ACCOUNT = "/WEB-INF/views/adminAccount.jsp";
+    public static final String ADMIN_ACCOUNT_EN = "/WEB-INF/views_en/adminAccount.jsp";
     public static final String SPEAKER_ACCOUNT = "/WEB-INF/views/speakerAccount.jsp";
+    public static final String SPEAKER_ACCOUNT_EN = "/WEB-INF/views_en/speakerAccount.jsp";
     public static final String LISTENER_ACCOUNT = "/WEB-INF/views/listenerAccount.jsp";
+    public static final String LISTENER_ACCOUNT_EN = "/WEB-INF/views_en/listenerAccount.jsp";
     public static final String TOPIC_CREATION_JSP = "/WEB-INF/views/topicCreation.jsp";
+    public static final String TOPIC_CREATION_JSP_EN = "/WEB-INF/views_en/topicCreation.jsp";
     public static final String EVENT_SUBSCRIPTION = "/WEB-INF/views/eventSubscription.jsp";
+    public static final String EVENT_SUBSCRIPTION_EN = "/WEB-INF/views_en/eventSubscription.jsp";
     public static final String SORTED_EVENTS = "/WEB-INF/views/sortedEvents.jsp";
+    public static final String SORTED_EVENTS_EN = "/WEB-INF/views_en/sortedEvents.jsp";
     public static final String OFFERED_TOPICS = "/WEB-INF/views/offeredTopics.jsp";
+    public static final String OFFERED_TOPICS_EN = "/WEB-INF/views_en/offeredTopics.jsp";
     public static final String OFFER_TOPIC_TO_SPEAKER_INFO = "/WEB-INF/views/offerTopicToSpeaker.jsp";
+    public static final String OFFER_TOPIC_TO_SPEAKER_INFO_EN = "/WEB-INF/views_en/offerTopicToSpeaker.jsp";
     public static final String INDEX_JSP = "index.jsp";
+    public static final String INDEX_EN_JSP = "index_en.jsp";
 
     public static final String FIELD_ID = "id";
     public static final String FIELD_FIRST_NAME = "first_name";
@@ -32,6 +43,7 @@ public class Constants {
     public static final String DESIGION_IS_DONE = "desigion_is_done";
     public static final String ROLE_SPEAKER = "speaker";
     public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_LISTENER = "listener";
 
     public static final String LN_SEP = System.lineSeparator();
     public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/mydb?user=root&password=5321068Ask@";
@@ -64,7 +76,7 @@ public class Constants {
     public static final String GET_NOT_FINISHED_EVENTS_LIMIT =
             "SELECT * FROM event WHERE date > now() ORDER BY date DESC limit ?, ?";
 
-    public static final String GET_ALL_EVENTS = "SELECT * FROM event ORDER BY date DESC";
+    //public static final String GET_ALL_EVENTS = "SELECT * FROM event ORDER BY date DESC";
     public static final String GET_ACCOUNT_BY_ROLE = "SELECT * FROM ACCOUNT WHERE role = ?";
 
     public static final String GET_NOT_FINISHED_EVENTS_GROUP_BY_VISITORS =
@@ -124,6 +136,20 @@ public class Constants {
     public static final String FIND_TOPICS_WITHOUT_SPEAKERS =
             "SELECT * FROM topic " +
                     "WHERE account_id is null AND event_id IN (SELECT id FROM event WHERE date > now())";
+
+    public static final String OFFER_EMPTY_TOPIC_TO_SPEAKER =
+            "UPDATE topic " +
+                    "SET account_id = ?, " +
+                    "    speaker_approved = 'false', " +
+                    "    desigion_is_done = 'false', " +
+                    "    admin_approved = 'true' " +
+                    "WHERE id = ?";
+
+    public static final String SELECT_VISITS_BY_USER_ID =
+            "SELECT * FROM event_visitor WHERE account_id = ?";
+
+    public static final String DELETE_VISIT =
+            "DELETE FROM event_visitor WHERE account_id = ? AND event_id = ?";
 
 
 

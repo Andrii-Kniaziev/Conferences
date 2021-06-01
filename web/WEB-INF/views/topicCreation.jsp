@@ -17,23 +17,11 @@
 <h2>
     Topic creation Form <br/>
 </h2>
-<%--<table>--%>
-<%--    <tr><th>ID</th><th>Name</th><th>Description</th><th>Date</th><th>Place</th><th>Finished</th></tr>--%>
-<%--    <c:forEach var="i" items="${events}">--%>
-<%--        <tr><td>${i.id}</td>--%>
-<%--            <td>${i.name}</td>--%>
-<%--            <td>${i.description}</td>--%>
-<%--            <td>${i.formattedDate}</td>--%>
-<%--            <td>${i.place}</td>--%>
-<%--            <td>${i.finished}</td></tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
-<h2>__________________________________________________________________</h2>
 <h2>
-    Speakers Available <br/>
+    Наявні спікери <br/>
 </h2>
 <table>
-    <tr><th>ID</th><th>First name</th><th>Last name</th><th>Email</th><th>Role</th></tr>
+    <tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Email</th><th>Роль</th></tr>
     <c:forEach var="i" items="${accounts}">
         <tr><td>${i.id}</td>
             <td>${i.firstName}</td>
@@ -44,27 +32,27 @@
 </table>
 <h2>__________________________________________________________________</h2>
 <h2>
-    Create new topic <br/>
+    Створити нову доповідь <br/>
 </h2>
-<p>Результат: ${requestScope.result}</p>
+<p>Результат дії: ${requestScope.result}</p>
 <br/>
 <form name="NewTopicForm" method="post" action="conferences">
     <input type="hidden" name="command" value="registerTopic">
     <table style="width: 80%">
         <tr>
-            <td>Название</td>
+            <td>Назва</td>
             <td>
                 <input type="text" name="topicName" required>
             </td>
         </tr>
         <tr>
-            <td>Описание</td>
+            <td>Опис</td>
             <td>
                 <input type="text" name="topicDescription" required>
             </td>
         </tr>
         <tr>
-            <td>Ивент</td>
+            <td>Захід</td>
             <td>
                 <select name="eventID" required>
                     <option value=" " selected disabled></option>
@@ -75,7 +63,7 @@
             </td>
         </tr>
         <tr>
-            <td>Спикер</td>
+            <td>Спікер</td>
             <td>
                 <select name="speakerID" required>
                     <option value=" " selected disabled></option>
@@ -86,19 +74,19 @@
             </td>
         </tr>
         <tr>
-            <td>Спикер согласился</td>
+            <td>Спікер вже погодився</td>
             <td>
                 <select name="speakerApproved" required>
-                    <option value="true">Да</option>
-                    <option value="false">Нет</option>
+                    <option value="true">Так</option>
+                    <option value="false">Ні</option>
                 </select>
             </td>
         </tr>
 
     </table>
-    <input type="submit" value="Создать топик">
+    <input type="submit" value="Створити">
 </form>
 <h2>__________________________________________________________________</h2>
-<a href="conferences?command=returnToAcc">На главную</a>
+<a href="conferences?command=returnToAcc">На головну</a>
 </body>
 </html>
