@@ -9,35 +9,41 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Welcome to conferences</h1>
-<div>
+<div class="heading">
+    <h1>Welcome to conferences</h1>
+</div>
+
+<div class="registration">
     <h2>Enter</h2>
     <form name="Form2" method="post" action="conferences">
         <input type="hidden" name="command" value="login">
         <table style="width: 80%">
-            <tr>
-                <td>Email</td>
+            <tr class="registration-line">
+                <td class="registration-title">Email</td>
                 <td>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" required class="registration-input">
                 </td>
             </tr>
-            <tr>
-                <td>Password</td>
+            <tr class="registration-line">
+                <td class="registration-title">Password</td>
                 <td>
-                    <input type="text" name="password" required>
+                    <input type="password" name="password" required class="registration-input">
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" class="btn btn-password">
     </form>
 </div>
-<div>
+<div class="languages">
     <a href="conferences?command=changeLang&language=EN">EN</a>
     <a href="conferences?command=changeLang&language=UA">UA</a>
 </div>
-<div>
+<div class="registration-page">
     <a href="registration_en.jsp">Registration</a>
 </div>
 </body>

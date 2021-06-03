@@ -16,8 +16,10 @@ public class ShowOfferedTopicsCommand implements Command {
 
         TopicService service = new TopicService();
         List<Topic> offeredTopics = service.getOfferedTopics(myID);
+        List<Topic> agreedTopics = service.getAgreedTopics(myID);
 
         req.setAttribute("offeredTopics", offeredTopics);
+        req.setAttribute("agreedTopics", agreedTopics);
 
         if(checkLanguageEN(req)) {
             return Constants.OFFERED_TOPICS_EN;

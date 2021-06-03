@@ -18,9 +18,11 @@ public class OfferTopicInfoCommand implements Command {
         AccountService accService = new AccountService();
 
         List<Topic> topicsWithoutSpeakers = topicService.getTopicsWithoutSpeakers();
+        List<Topic> proposedTopics = topicService.getProposedTopics();
         List<Account> speakers = accService.getAccountsByRole(Constants.ROLE_SPEAKER);
 
         req.setAttribute("availableTopics", topicsWithoutSpeakers);
+        req.setAttribute("proposedTopics", proposedTopics);
         req.setAttribute("accounts", speakers);
 
         if(checkLanguageEN(req)) {

@@ -49,6 +49,22 @@ public class JDBCEventDAO implements EventDAO {
         return events;
     }
 
+    public List<Integer> getNotFinishedEventIDs() throws MyException {
+        List<Integer> ids = new ArrayList<>();
+
+        try(Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(Constants.SELECT_NOT_FINISHED_EVENTS)) {
+
+            while (res.next()) {
+                ids.add(res.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting not finished event IDs", e);
+        }
+
+        return ids;
+    }
+
     public List<Event> getEventsFrom(int index, String query) throws MyException {
         List<Event> events = new ArrayList<>();
 
@@ -112,7 +128,7 @@ public class JDBCEventDAO implements EventDAO {
 //        for (Event e : evs) {
 //            System.out.println(e);
 //        }
-
+//
 //        EventMapper em = new EventMapper();
 //
 //        System.out.println(em.getQueryForEventSort("future", "date"));
@@ -121,5 +137,5 @@ public class JDBCEventDAO implements EventDAO {
 //        System.out.println("**********************");
 //        System.out.println(em.getQueryForEventSort("future", "listenersNumber"));
 //        System.out.println("**********************");
-    //}
+//    }
 }

@@ -22,6 +22,8 @@ public class Constants {
     public static final String OFFERED_TOPICS_EN = "/WEB-INF/views_en/offeredTopics.jsp";
     public static final String OFFER_TOPIC_TO_SPEAKER_INFO = "/WEB-INF/views/offerTopicToSpeaker.jsp";
     public static final String OFFER_TOPIC_TO_SPEAKER_INFO_EN = "/WEB-INF/views_en/offerTopicToSpeaker.jsp";
+    public static final String TOPICS_IN_PROCESS = "/WEB-INF/views/topicsInProcess.jsp";
+    public static final String TOPICS_IN_PROCESS_EN = "/WEB-INF/views_en/topicsInProcess.jsp";
     public static final String INDEX_JSP = "index.jsp";
     public static final String INDEX_EN_JSP = "index_en.jsp";
 
@@ -46,7 +48,6 @@ public class Constants {
     public static final String ROLE_LISTENER = "listener";
 
     public static final String LN_SEP = System.lineSeparator();
-    public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/mydb?user=root&password=5321068Ask@";
 
     public static final String INSERT_ACCOUNT = "INSERT INTO account"
             + "(email, password, first_name, last_name, role)"
@@ -76,7 +77,6 @@ public class Constants {
     public static final String GET_NOT_FINISHED_EVENTS_LIMIT =
             "SELECT * FROM event WHERE date > now() ORDER BY date DESC limit ?, ?";
 
-    //public static final String GET_ALL_EVENTS = "SELECT * FROM event ORDER BY date DESC";
     public static final String GET_ACCOUNT_BY_ROLE = "SELECT * FROM ACCOUNT WHERE role = ?";
 
     public static final String GET_NOT_FINISHED_EVENTS_GROUP_BY_VISITORS =
@@ -127,15 +127,34 @@ public class Constants {
 
     public static final String DISAGREE_FOR_OFFERED_TOPIC =
             "UPDATE topic " +
-                    "SET account_id = NULL, " +
-                    "speaker_approved = 'false', " +
+                    "SET speaker_approved = 'false', " +
                     "desigion_is_done = 'false', " +
                     "admin_approved = 'false' " +
                     "WHERE id = ?";
 
+    public static final String APPROVE_OFFERED_TOPIC =
+            "UPDATE topic " +
+                    "SET admin_approved = 'true', " +
+                    "desigion_is_done = 'true' " +
+                    "WHERE id = ?";
+
+    public static final String DENY_OFFERED_TOPIC =
+            "UPDATE topic " +
+                    "SET admin_approved = 'false', " +
+                    "speaker_approved = 'false', " +
+                    "desigion_is_done = 'true' " +
+                    "WHERE id = ?";
+
+    public static final String SELECT_NOT_FINISHED_EVENTS =
+            "SELECT id FROM event WHERE date > now()";
+
     public static final String FIND_TOPICS_WITHOUT_SPEAKERS =
             "SELECT * FROM topic " +
-                    "WHERE account_id is null AND event_id IN (SELECT id FROM event WHERE date > now())";
+                    "WHERE (account_id is null OR " +
+                    "(speaker_approved = 'false' " +
+                    "AND desigion_is_done = 'false' " +
+                    "AND admin_approved = 'false')) " +
+                    "AND event_id IN (SELECT id FROM event WHERE date > now())";
 
     public static final String OFFER_EMPTY_TOPIC_TO_SPEAKER =
             "UPDATE topic " +
@@ -150,6 +169,25 @@ public class Constants {
 
     public static final String DELETE_VISIT =
             "DELETE FROM event_visitor WHERE account_id = ? AND event_id = ?";
+
+    public static final String SELECT_AGREED_TOPIC_BY_SPEAKER_ID =
+            "SELECT * FROM topic WHERE account_id = ? " +
+                    "AND admin_approved = 'true' " +
+                    "AND speaker_approved = 'true' " +
+                    "AND desigion_is_done='true' " +
+                    "AND event_id IN (SELECT id FROM event WHERE date > now())";
+
+    public static final String SELECT_TOPICS_IN_PROCESS =
+            "SELECT * FROM topic WHERE account_id = ? " +
+                    "AND admin_approved = 'false' " +
+                    "AND speaker_approved = 'true' " +
+                    "AND desigion_is_done='false' " +
+                    "AND event_id IN (SELECT id FROM event WHERE date > now())";
+
+    public static final String SELECT_PROPOSED_FOR_ADMIN_DECISION_TOPICS =
+            "SELECT * FROM topic WHERE (admin_approved = 'false'" +
+                    " AND speaker_approved = 'true'" +
+                    " AND desigion_is_done = 'false')";
 
 
 

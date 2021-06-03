@@ -8,11 +8,17 @@ public interface TopicDAO extends SuperDAO {
 
     boolean insertTopic(Topic topic) throws MyException;
 
-    public List<Topic> getOfferedByAdmin (int accountID) throws MyException;
+    List<Topic> getOfferedByAdmin (int accountID) throws MyException;
 
-    public boolean desigionForOfferedTopic(int topicID, String query) throws MyException;
+    boolean desigionForOfferedTopic(int topicID, String query) throws MyException;
 
-    public List<Topic> getTopicsWithoutSpeakers() throws MyException;
+    List<Topic> getTopicsWithoutSpeakers() throws MyException;
 
-    public boolean offerEmptyTopic(int topicID, int speakerID) throws MyException;
+    boolean offerEmptyTopic(int topicID, int speakerID) throws MyException;
+
+    List<Topic> getTopicsByQuery(int accountID, String query) throws MyException;
+
+    List<Topic> getProposedTopics() throws MyException;
+
+    boolean approveOrDenyOfferedTopic(int topicID, boolean isApproved);
 }

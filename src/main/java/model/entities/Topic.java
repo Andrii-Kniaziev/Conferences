@@ -8,10 +8,10 @@ public class Topic {
     private String description;
     private boolean adminApproved;
     private boolean speakerApproved;
-    private boolean deсisionDone;
+    private boolean decisionDone;
 
     public Topic(int id, int eventId, int speakerId, String name, String description,
-                 boolean adminApproved, boolean speakerApproved, boolean deсisionDone) {
+                 boolean adminApproved, boolean speakerApproved, boolean decisionDone) {
         this.id = id;
         this.eventId = eventId;
         this.speakerId = speakerId;
@@ -19,7 +19,18 @@ public class Topic {
         this.description = description;
         this.adminApproved = adminApproved;
         this.speakerApproved = speakerApproved;
-        this.deсisionDone = deсisionDone;
+        this.decisionDone = decisionDone;
+    }
+
+    public Topic(int eventId, int speakerId, String name, String description,
+                 boolean adminApproved, boolean speakerApproved, boolean decisionDone) {
+        this.eventId = eventId;
+        this.speakerId = speakerId;
+        this.name = name;
+        this.description = description;
+        this.adminApproved = adminApproved;
+        this.speakerApproved = speakerApproved;
+        this.decisionDone = decisionDone;
     }
 
     public Topic(int eventId, int speakerId, String name, String description, boolean adminApproved, boolean speakerApproved) {
@@ -30,7 +41,7 @@ public class Topic {
         this.adminApproved = adminApproved;
         this.speakerApproved = speakerApproved;
         if(adminApproved && speakerApproved) {
-            deсisionDone = true;
+            decisionDone = true;
         }
     }
 
@@ -61,7 +72,7 @@ public class Topic {
     }
 
     public boolean isDeсisionDone() {
-        return deсisionDone;
+        return decisionDone;
     }
 
     @Override

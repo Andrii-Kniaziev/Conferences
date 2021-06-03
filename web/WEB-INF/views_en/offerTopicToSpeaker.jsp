@@ -33,8 +33,12 @@
                 <form name="offerFreeTopicToSpeaker" action="conferences">
                     <select name="speakerID" required>
                         <option value=" " selected disabled></option>
+                        <c:set var="previousSpeaker" value="${i.speakerId}"/>
                         <c:forEach var="a" items="${accounts}">
-                            <option value="${a.id}">${a.firstName} ${a.lastName}</option>
+                            <c:set var="potentialSpeaker" value="${a.id}"/>
+                            <c:if test="${previousSpeaker ne potentialSpeaker}">
+                                <option value="${a.id}">${a.firstName} ${a.lastName}</option>
+                            </c:if>
                         </c:forEach>
                     </select>
                     <input type="hidden" name="command" value="offerTopicToSpeaker">

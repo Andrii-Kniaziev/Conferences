@@ -36,18 +36,18 @@ public class JDBCTopicDAO implements TopicDAO {
     }
 
     public List<Topic> getTopicsWithoutSpeakers() throws MyException {
-        List<Topic> noSpeacersTopics;
+        List<Topic> noSpeakersTopics;
 
         try (Statement stmt = con.createStatement()) {
             ResultSet res = stmt.executeQuery(Constants.FIND_TOPICS_WITHOUT_SPEAKERS);
 
-            noSpeacersTopics = new TopicMapper().getTopicsFromResSet(res);
+            noSpeakersTopics = new TopicMapper().getTopicsFromResSet(res);
 
         } catch (SQLException e) {
             throw new MyException("Something went wrong with getting of topics without speakers", e);
         }
 
-        return noSpeacersTopics;
+        return noSpeakersTopics;
     }
 
     public List<Topic> getOfferedByAdmin(int accountID) throws MyException {
@@ -69,6 +69,25 @@ public class JDBCTopicDAO implements TopicDAO {
         return offeredTopics;
     }
 
+    public List<Topic> getTopicsByQuery(int accountID, String query) throws MyException {
+        List<Topic> topics;
+        ResultSet res = null;
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, accountID);
+            res = stmt.executeQuery();
+
+            topics = new TopicMapper().getTopicsFromResSet(res);
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting of topics", e);
+        } finally {
+            close(res);
+        }
+
+        return topics;
+    }
+
     public boolean offerEmptyTopic(int topicID, int speakerID) throws MyException {
         try (PreparedStatement stmt = con.prepareStatement(Constants.OFFER_EMPTY_TOPIC_TO_SPEAKER)) {
             stmt.setInt(1, speakerID);
@@ -78,6 +97,21 @@ public class JDBCTopicDAO implements TopicDAO {
 
         } catch (SQLException e) {
             throw new MyException("Something went wrong with updating of topics", e);
+        }
+
+        return true;
+    }
+
+    public boolean approveOrDenyOfferedTopic(int topicID, boolean isApproved) {
+        String query = isApproved ? Constants.APPROVE_OFFERED_TOPIC : Constants.DENY_OFFERED_TOPIC;
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, topicID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            return false;
         }
 
         return true;
@@ -94,6 +128,17 @@ public class JDBCTopicDAO implements TopicDAO {
         }
 
         return true;
+    }
+
+    public List<Topic> getProposedTopics() throws MyException {
+        try (Statement stmt = con.createStatement()) {
+            ResultSet res = stmt.executeQuery(Constants.SELECT_PROPOSED_FOR_ADMIN_DECISION_TOPICS);
+
+            return new TopicMapper().getTopicsFromResSet(res);
+
+        } catch (SQLException e) {
+            throw new MyException("Something went wrong with getting of topics without speakers", e);
+        }
     }
 
     @Override

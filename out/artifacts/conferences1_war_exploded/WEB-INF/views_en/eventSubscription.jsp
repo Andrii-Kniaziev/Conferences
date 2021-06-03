@@ -10,10 +10,13 @@
 <html>
 <head>
     <title>Subscribe for event</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 
-<table style="width: 80%">
+<table style="width: 80%" class="table-registr ">
     <tr>
         <th>Event ID</th>
         <th>Name</th>
@@ -34,31 +37,34 @@
                 <c:set var="contains" value="false"/>
                 <c:forEach var="eID" items="${eventIDs}">
                     <c:if test="${eID eq currentID}">
-                        <c:set var="contains" value="true" />
+                        <c:set var="contains" value="true"/>
                     </c:if>
                 </c:forEach>
                 <c:if test="${contains eq 'true'}">
                     <form name="eventUnsubscriptionForm" action="conferences">
                         <input type="hidden" name="command" value="unsubscribeFromEvent">
                         <input type="hidden" name="eventID" value="${i.id}">
-                        <input type="submit" value="Unsubscribe">
+                        <input type="submit" value="Unsubscribe" class="submit-btn">
                     </form>
                 </c:if>
                 <c:if test="${contains eq 'false'}">
                     <form name="eventSubscriptionForm" action="conferences">
                         <input type="hidden" name="command" value="subscribeForEvent">
                         <input type="hidden" name="eventID" value="${i.id}">
-                        <input type="submit" value="Subscribe">
+                        <input type="submit" value="Subscribe" class="submit-btn">
                     </form>
                 </c:if>
             </td>
         </tr>
     </c:forEach>
 </table>
-<c:forEach var="i" items="${pages}">
-    <a href="conferences?command=eventSubscriptionInfo&page=${i}">${i}</a>
-</c:forEach>
-<br/>
-<a href="conferences?command=returnToAcc">To the main page</a>
+<div class="page-number">
+    <c:forEach var="i" items="${pages}">
+        <a href="conferences?command=eventSubscriptionInfo&page=${i}">${i}</a>
+    </c:forEach>
+</div>
+<p class="to-main">
+    <a href="conferences?command=returnToAcc">To the main page</a>
+</p>
 </body>
 </html>

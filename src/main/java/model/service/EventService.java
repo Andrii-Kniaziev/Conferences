@@ -55,4 +55,17 @@ public class EventService {
             return dao.insertEvent(event);
         }
     }
+
+    public boolean checkEventIsNotFinished(int eventID) throws MyException {
+        List<Integer> notFinished = new ArrayList<>();
+        try (EventDAO dao = daoFactory.createEventDao()) {
+            notFinished = dao.getNotFinishedEventIDs();
+        }
+
+        if (notFinished.contains(eventID)) {
+            return true;
+        }
+
+        return false;
+    }
 }

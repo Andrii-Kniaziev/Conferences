@@ -10,42 +10,71 @@
 <html>
 <head>
     <title>Offered topics</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<h2>Пропозиції провести доповідь</h2>
-<table>
-    <tr>
-        <th>ID доповіді</th>
-        <th>ID івента</th>
-        <th>Ваш ID</th>
-        <th>Назва доповіді</th>
-        <th>Опис доповіді</th>
-        <th>Погодитися / Відмовитися</th>
-    </tr>
-    <c:forEach var="i" items="${offeredTopics}">
+<div class="personal-listener d-flex container-fluid">
+    <h2>Пропозиції провести доповідь</h2>
+    <h2>Доповіді які ви погодилися провести</h2>
+</div>
+<div class="container-fluid d-flex table-wrapper">
+    <table class="table-registr">
         <tr>
-            <td>${i.id}</td>
-            <td>${i.eventId}</td>
-            <td>${i.speakerId}</td>
-            <td>${i.name}</td>
-            <td>${i.description}</td>
-            <td>
-                <form name="eventSubscriptionForm" action="conferences">
-                    <input type="hidden" name="command" value="offeredTopicDecision">
-                    <input type="hidden" name="decision" value="yes">
-                    <input type="hidden" name="topicID" value="${i.id}">
-                    <input type="submit" value="Так">
-                </form>
-                <form name="eventSubscriptionForm" action="conferences">
-                    <input type="hidden" name="command" value="offeredTopicDecision">
-                    <input type="hidden" name="decision" value="no">
-                    <input type="hidden" name="topicID" value="${i.id}">
-                    <input type="submit" value="Ні">
-                </form>
-            </td>
+            <th>ID доповіді</th>
+            <th>ID івента</th>
+            <th>Ваш ID</th>
+            <th>Назва доповіді</th>
+            <th>Опис доповіді</th>
+            <th>Погодитися / Відмовитися</th>
         </tr>
-    </c:forEach>
-</table>
-<a href="conferences?command=returnToAcc">На головну</a>
+        <c:forEach var="i" items="${offeredTopics}">
+            <tr>
+                <td>${i.id}</td>
+                <td>${i.eventId}</td>
+                <td>${i.speakerId}</td>
+                <td>${i.name}</td>
+                <td>${i.description}</td>
+                <td class="d-flex btn-group">
+                    <form name="eventSubscriptionForm" action="conferences">
+                        <input type="hidden" name="command" value="offeredTopicDecision">
+                        <input type="hidden" name="decision" value="yes">
+                        <input type="hidden" name="topicID" value="${i.id}">
+                        <input type="submit" value="Так" class="submit-btn">
+                    </form>
+                    <form name="eventSubscriptionForm" action="conferences">
+                        <input type="hidden" name="command" value="offeredTopicDecision">
+                        <input type="hidden" name="decision" value="no">
+                        <input type="hidden" name="topicID" value="${i.id}">
+                        <input type="submit" value="Ні" class="submit-btn">
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table class="table-registr">
+        <tr>
+            <th>ID доповіді</th>
+            <th>ID івента</th>
+            <th>Ваш ID</th>
+            <th>Назва доповіді</th>
+            <th>Опис доповіді</th>
+        </tr>
+        <c:forEach var="i" items="${agreedTopics}">
+            <tr>
+                <td>${i.id}</td>
+                <td>${i.eventId}</td>
+                <td>${i.speakerId}</td>
+                <td>${i.name}</td>
+                <td>${i.description}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+<p class="to-main">
+    <a href="conferences?command=returnToAcc">На головну</a>
+</p>
 </body>
 </html>

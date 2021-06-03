@@ -10,55 +10,62 @@
 <html>
 <head>
     <title>Subscribe for event</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
-
-<table style="width: 80%">
-    <tr>
-        <th>ID Івента</th>
-        <th>Назва</th>
-        <th>Опис</th>
-        <th>Дата</th>
-        <th>Місце</th>
-        <th>Зареєструватися / Відписатися</th>
-    </tr>
-    <c:forEach var="i" items="${events}">
+<div>
+    <table style="width: 80%" class="table-registr ">
         <tr>
-            <td>${i.id}</td>
-            <td>${i.name}</td>
-            <td>${i.description}</td>
-            <td>${i.formattedDate}</td>
-            <td>${i.place}</td>
-            <td>
-                <c:set var="currentID" value="${i.id}"/>
-                <c:set var="contains" value="false"/>
-        <c:forEach var="eID" items="${eventIDs}">
-            <c:if test="${eID eq currentID}">
-                <c:set var="contains" value="true" />
-            </c:if>
-        </c:forEach>
-                <c:if test="${contains eq 'true'}">
-                    <form name="eventUnsubscriptionForm" action="conferences">
-                        <input type="hidden" name="command" value="unsubscribeFromEvent">
-                        <input type="hidden" name="eventID" value="${i.id}">
-                        <input type="submit" value="Відписатися">
-                    </form>
-                </c:if>
-                <c:if test="${contains eq 'false'}">
-                    <form name="eventSubscriptionForm" action="conferences">
-                        <input type="hidden" name="command" value="subscribeForEvent">
-                        <input type="hidden" name="eventID" value="${i.id}">
-                        <input type="submit" value="Зареєструватися">
-                    </form>
-                </c:if>
-            </td>
+            <th>ID Івента</th>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Дата</th>
+            <th>Місце</th>
+            <th>Зареєструватися / Відписатися</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="i" items="${events}">
+            <tr>
+                <td>${i.id}</td>
+                <td>${i.name}</td>
+                <td>${i.description}</td>
+                <td>${i.formattedDate}</td>
+                <td>${i.place}</td>
+                <td>
+                    <c:set var="currentID" value="${i.id}"/>
+                    <c:set var="contains" value="false"/>
+                    <c:forEach var="eID" items="${eventIDs}">
+                        <c:if test="${eID eq currentID}">
+                            <c:set var="contains" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${contains eq 'true'}">
+                        <form name="eventUnsubscriptionForm" action="conferences">
+                            <input type="hidden" name="command" value="unsubscribeFromEvent">
+                            <input type="hidden" name="eventID" value="${i.id}">
+                            <input type="submit" value="Відписатися" class="submit-btn">
+                        </form>
+                    </c:if>
+                    <c:if test="${contains eq 'false'}">
+                        <form name="eventSubscriptionForm" action="conferences">
+                            <input type="hidden" name="command" value="subscribeForEvent">
+                            <input type="hidden" name="eventID" value="${i.id}">
+                            <input type="submit" value="Зареєструватися" class="submit-btn">
+                        </form>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+<div class="page-number">
 <c:forEach var="i" items="${pages}">
     <a href="conferences?command=eventSubscriptionInfo&page=${i}">${i}</a>
 </c:forEach>
+</div>
 <br/>
-<a href="conferences?command=returnToAcc">На головну</a>
+<p class="to-main">
+    <a href="conferences?command=returnToAcc">На головну</a>
+</p>
 </body>
 </html>

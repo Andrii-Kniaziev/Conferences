@@ -18,7 +18,7 @@
 <p>__________________________________________________________________________________________</p>
 <p>Action result: ${requestScope.result}</p>
 <p>__________________________________________________________________________________________</p>
-<p>Offers to spend topic</p>
+<p>Offers to spend topic and accepted</p>
 <form name="showOfferedTopics" action="conferences">
     <input type="hidden" name="command" value="showOfferedTopics">
     <input type="submit" value="Look">

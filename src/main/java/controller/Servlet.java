@@ -35,6 +35,9 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("offerTopicToSpeaker", new SubmitTopicToSpeakerCommand());
         commands.put("changeLang", new ChangeLanguageCommand());
         commands.put("unsubscribeFromEvent", new UnsubscribeFromEventCommand());
+        commands.put("offerTopicForEvent", new OfferTopicForEvent());
+        commands.put("approveOrDenyTopic", new TopicDecisionCommand());
+        commands.put("showTopicsInProcess", new TopicsInProcessCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

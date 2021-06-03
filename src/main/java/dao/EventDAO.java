@@ -12,5 +12,7 @@ public interface EventDAO extends SuperDAO {
 
     List<Event> getEventsFrom(int index, String query) throws MyException;
 
-    public int getEventCount(boolean isNotFinished);
+    int getEventCount(boolean isNotFinished);
+
+    List<Integer> getNotFinishedEventIDs() throws MyException;
 }

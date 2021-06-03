@@ -74,9 +74,7 @@ public class Event {
         return calendar;
     }
 
-    public void setCalendar(GregorianCalendar calendar) {
-        this.calendar = calendar;
-    }
+    public void setCalendar(GregorianCalendar calendar) { this.calendar = calendar; }
 
     public String getPlace() {
         return place;
