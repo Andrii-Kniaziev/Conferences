@@ -7,6 +7,12 @@ import model.service.TopicService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This class is related to decision of admin to approve
+ * or deny some topics which were offered by speakers for
+ * events.
+ */
+
 public class TopicDecisionCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

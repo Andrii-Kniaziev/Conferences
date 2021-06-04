@@ -14,7 +14,7 @@ import java.util.Properties;
 public class LoginCommand implements Command {
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Properties pr = getProperties(req);
 
         String result = pr.getProperty("emailNotRegistered");
@@ -37,6 +37,15 @@ public class LoginCommand implements Command {
 
         return chooseDir(req, account);
     }
+
+    /**
+     * Method chooses further direction i.e. next page by the
+     * information about user which is represented by Account account
+     * object
+     * @param req to get information about used language and user
+     * @param account representation of account
+     * @return further direction
+     */
 
     @SuppressWarnings("unchecked")
     public String chooseDir(HttpServletRequest req, Account account) {

@@ -9,6 +9,11 @@ import model.service.TopicService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This command is called in case when speaker wants
+ * to offer own new topic for some event
+ */
+
 public class OfferTopicForEvent implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

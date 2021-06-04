@@ -59,7 +59,7 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 
         try {
             address = command.execute(request, response);
-        } catch (MyException ex) {
+        } catch (Exception ex) {
             request.setAttribute("error", ex.getCause());
         }
 

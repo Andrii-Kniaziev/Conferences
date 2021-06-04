@@ -13,7 +13,7 @@ public class TopicService {
 
     /**
      * Method creates new topic.
-     * @param topic
+     * @param topic topic to be added to DB
      * @return true in case of success,
      * or false if something is wrong with connection to DB.
      */
@@ -22,14 +22,13 @@ public class TopicService {
         try(TopicDAO dao = daoFactory.createTopicDao()) {
             return dao.insertTopic(topic);
         } catch (MyException e) {
-            System.out.println(e.getCause());
             return false;
         }
     }
 
     /**
      * Method returns list of Topics which were offered by admin to some speaker.
-     * @param speakerId
+     * @param speakerId ID of speaker
      * @return list of topics which admin offered to spend to speaker
      * but speaker hasn`t done decision yet.
      * @throws MyException in case of problems with connection to DB.
@@ -43,9 +42,9 @@ public class TopicService {
 
     /**
      * Method returns list of Topics which speaker agree to spend.
-     * @param speakerID
+     * @param speakerID ID of speaker
      * @return list of topics which speaker will spend.
-     * @throws MyException
+     * @throws MyException in case of problems with connection to DB
      */
 
     public List<Topic> getAgreedTopics(int speakerID) throws MyException {
@@ -108,7 +107,7 @@ public class TopicService {
      * In this method speaker can make decision about what topics he wants to spend,
      * from the list {@link #getOfferedTopics(int speakerID)}
      * @param decision 'yes' or 'no'
-     * @param topicID
+     * @param topicID ID of topic
      * @return 'true' in case of success or 'false' in case of
      * problems of connection to DB
      */
@@ -118,7 +117,7 @@ public class TopicService {
                 Constants.AGREE_FOR_OFFERED_TOPIC : Constants.DISAGREE_FOR_OFFERED_TOPIC;
 
         try(TopicDAO dao = daoFactory.createTopicDao()) {
-            dao.desigionForOfferedTopic(topicID, query);
+            dao.decisionForOfferedTopic(topicID, query);
         } catch (MyException ex) {
             return false;
         }
@@ -129,8 +128,8 @@ public class TopicService {
      * In case when some speaker denied to spend some topic
      * it is possible to offer it to someone else.
      * List of such topics we get from {@link #getTopicsWithoutSpeakers()}
-     * @param topicID
-     * @param speakerID
+     * @param topicID ID of topic
+     * @param speakerID ID of speaker
      * @return 'true' in case of success or 'false' in case of
      * problems of connection to DB
      */

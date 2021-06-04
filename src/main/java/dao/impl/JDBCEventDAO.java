@@ -6,17 +6,26 @@ import dao.EventDAO;
 import dao.MyException;
 import dao.mapper.EventMapper;
 import model.entities.Event;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCEventDAO implements EventDAO {
+    private static Logger logger = Logger.getLogger(JDBCEventDAO.class);
     private Connection con;
 
     public JDBCEventDAO(Connection con) {
         this.con = con;
     }
+
+    /**
+     * Method creates new event in DB
+     * @param event represents event to be created
+     * @return 'true' in case of success
+     * @throws MyException in case if something is wrong with connection to DB
+     */
 
     public boolean insertEvent(Event event) throws MyException {
         try (PreparedStatement stmt = con.prepareStatement(Constants.INSERT_EVENT)) {
@@ -30,10 +39,17 @@ public class JDBCEventDAO implements EventDAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
+            logger.error(e);
             throw new MyException("Something went wrong with insertion of new Event", e);
         }
         return true;
     }
+
+    /**
+     * Method returns list of events that arn`t finished
+     * @return list of not finished events
+     * @throws MyException in case if something is wrong with connection to DB
+     */
 
     public List<Event> getAllEvents() throws MyException {
         List<Event> events;
@@ -43,11 +59,18 @@ public class JDBCEventDAO implements EventDAO {
 
             events = new EventMapper().getEventsFromResultSet(res);
         } catch (SQLException e) {
+            logger.error(e);
             throw new MyException("Something went wrong with getting events from DB", e);
         }
 
         return events;
     }
+
+    /**
+     * Method gets IDs of not finished events
+     * @return list of IDs of not finished events
+     * @throws MyException in case if something is wrong with connection to DB
+     */
 
     public List<Integer> getNotFinishedEventIDs() throws MyException {
         List<Integer> ids = new ArrayList<>();
@@ -59,15 +82,23 @@ public class JDBCEventDAO implements EventDAO {
                 ids.add(res.getInt(1));
             }
         } catch (SQLException e) {
+            logger.error(e);
             throw new MyException("Something went wrong with getting not finished event IDs", e);
         }
 
         return ids;
     }
 
-    public List<Event> getEventsFrom(int index, String query) throws MyException {
-        List<Event> events = new ArrayList<>();
+    /**
+     * Method gets list of 5 Events starting from some index
+     * @param index starting index
+     * @param query different queries
+     * for different kinds of sorting
+     * @return list of sorted events, starting from index
+     * @throws MyException in case if something is wrong with connection to DB
+     */
 
+    public List<Event> getEventsFrom(int index, String query) throws MyException {
         PreparedStatement stmt = null;
         ResultSet res = null;
         try {
@@ -76,17 +107,22 @@ public class JDBCEventDAO implements EventDAO {
             stmt.setInt(2, 5);
             res = stmt.executeQuery();
 
-            events = new EventMapper().getEventsFromResultSet(res);
+            return new EventMapper().getEventsFromResultSet(res);
 
         } catch (SQLException e) {
+            logger.error(e);
             throw new MyException("Something went wrong with getting events from DB", e);
         } finally {
             close(res);
             close(stmt);
         }
-
-        return events;
     }
+
+    /**
+     * Method returns count of not finished or finished events
+     * @param isNotFinished indicator
+     * @return count
+     */
 
     public int getEventCount(boolean isNotFinished) {
         String query = isNotFinished ? Constants.GET_NOT_FINISHED_EVENT_COUNT : Constants.GET_FINISHED_EVENT_COUNT;
@@ -97,8 +133,8 @@ public class JDBCEventDAO implements EventDAO {
             if(res.next()) {
                 return res.getInt("count(*)");
             }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            logger.error(e);
         }
         return -1;
     }
@@ -108,34 +144,9 @@ public class JDBCEventDAO implements EventDAO {
         try {
             con.close();
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException(e);
         }
     }
 
-//    public static void main(String[] args) {
-//        List<Event> evs = null;
-//
-//        JDBCEventDAO dao = (JDBCEventDAO) DaoFactory.getInstance().createEventDao();
-//
-//
-//        try {
-//            evs = dao.getEventsFrom(0, Constants.GET_FINISHED_EVENTS_LIMIT);
-//        } catch (MyException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        for (Event e : evs) {
-//            System.out.println(e);
-//        }
-//
-//        EventMapper em = new EventMapper();
-//
-//        System.out.println(em.getQueryForEventSort("future", "date"));
-//        System.out.println("**********************");
-//        System.out.println(em.getQueryForEventSort("future", "topicNumber"));
-//        System.out.println("**********************");
-//        System.out.println(em.getQueryForEventSort("future", "listenersNumber"));
-//        System.out.println("**********************");
-//    }
 }

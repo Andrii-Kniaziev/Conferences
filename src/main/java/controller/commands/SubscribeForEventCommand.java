@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class SubscribeForEventCommand implements Command{
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Properties pr = getProperties(req);
 
         VisitService service = new VisitService();

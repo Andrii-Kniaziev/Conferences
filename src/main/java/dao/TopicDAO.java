@@ -8,9 +8,7 @@ public interface TopicDAO extends SuperDAO {
 
     boolean insertTopic(Topic topic) throws MyException;
 
-    List<Topic> getOfferedByAdmin (int accountID) throws MyException;
-
-    boolean desigionForOfferedTopic(int topicID, String query) throws MyException;
+    boolean decisionForOfferedTopic(int topicID, String query) throws MyException;
 
     List<Topic> getTopicsWithoutSpeakers() throws MyException;
 
