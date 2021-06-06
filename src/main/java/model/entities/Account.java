@@ -45,4 +45,28 @@ public class Account {
     public String toString() {
         return id + " " + firstName + " " + lastName + " " + email + " " + role;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        if (!email.equals(account.email)) return false;
+        if (!password.equals(account.password)) return false;
+        if (!firstName.equals(account.firstName)) return false;
+        if (!lastName.equals(account.lastName)) return false;
+        return role == account.role;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = email.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + role.hashCode();
+        return result;
+    }
 }

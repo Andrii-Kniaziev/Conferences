@@ -74,22 +74,12 @@ public class Event {
         return calendar;
     }
 
-    public void setCalendar(GregorianCalendar calendar) { this.calendar = calendar; }
-
     public String getPlace() {
         return place;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public boolean isFinished() {
         return isFinished;
-    }
-
-    public void setFinished(boolean finished) {
-        isFinished = finished;
     }
 
     @Override

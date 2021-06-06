@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ChangeLanguageCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String lang = req.getParameter("language");
-
-        System.out.println(lang);
 
         if(lang.equals(Constants.UA)){
             req.getSession().setAttribute("language", Constants.UA);

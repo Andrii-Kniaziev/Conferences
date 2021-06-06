@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventService {
-    DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory;
+
+    public EventService() {
+        daoFactory = DaoFactory.getInstance();
+    }
 
     /**
      * Method gets portion of 5 not finished events

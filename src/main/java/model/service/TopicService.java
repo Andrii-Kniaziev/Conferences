@@ -9,7 +9,11 @@ import model.entities.Topic;
 import java.util.List;
 
 public class TopicService {
-    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory;
+
+    public TopicService() {
+        daoFactory = DaoFactory.getInstance();
+    }
 
     /**
      * Method creates new topic.

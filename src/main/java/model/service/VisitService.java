@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisitService {
-    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory;
+
+    public VisitService() {
+        daoFactory = DaoFactory.getInstance();
+    }
 
     /**
      * Method creates new visit of listener to some event

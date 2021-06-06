@@ -8,6 +8,7 @@ import model.service.TopicService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
 
 /**
  * This command is called in case when speaker wants
@@ -17,13 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 public class OfferTopicForEvent implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+        Properties pr = getProperties(req);
         String name = req.getParameter("topicName");
         String description = req.getParameter("topicDescription");
         int eventID = Integer.parseInt(req.getParameter("eventID"));
         int speakerID = Integer.parseInt((String) req.getSession().getAttribute(Constants.FIELD_ID));
 
         if(!new EventService().checkEventIsNotFinished(eventID)) {
-            req.setAttribute("result", "Вказанний вами ID належить івенту що вже закінчився або не існує");
+            req.setAttribute("result", pr.getProperty("idOfEventThatWasFinishedOrNotExists"));
 
             return choosePage(req);
         }
@@ -33,9 +35,9 @@ public class OfferTopicForEvent implements Command {
                 false, true, false));
 
         if(res) {
-            req.setAttribute("result", "Ви запропонували нову доповідь" + name);
+            req.setAttribute("result", pr.getProperty("youHaveOfferedNewTopic") + " " + name);
         } else {
-            req.setAttribute("result", "Щось пішло не так");
+            req.setAttribute("result", pr.getProperty("tryAgainLater"));
         }
 
         return choosePage(req);

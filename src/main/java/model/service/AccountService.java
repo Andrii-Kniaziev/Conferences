@@ -8,7 +8,11 @@ import model.entities.Account;
 import java.util.List;
 
 public class AccountService {
-    DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory;
+
+    public AccountService() {
+        daoFactory = DaoFactory.getInstance();
+    }
 
     /**
      * Method returns list of users by role
