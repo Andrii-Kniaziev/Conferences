@@ -1,1 +1,4 @@
 2021-06-03 14:41:23 INFO  JDBCAccountDAO:53 - Account has been gotten by email
+2021-06-06 15:46:14 ERROR JDBCVisitDAO:42 - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`mydb`.`event_visitor`, CONSTRAINT `fk_account_has_event_account1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2021-06-06 15:46:14 ERROR JDBCVisitDAO:42 - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`mydb`.`event_visitor`, CONSTRAINT `fk_account_has_event_account1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2021-06-06 15:51:40 ERROR JDBCVisitDAO:42 - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '104-32' for key 'event_visitor.PRIMARY'
