@@ -1,12 +1,9 @@
 package dao.impl;
 
 import dao.Constants;
-import dao.DaoFactory;
 import dao.MyException;
 import dao.VisitDAO;
-import dao.mapper.EventMapper;
 import dao.mapper.VisitMapper;
-import model.entities.Event;
 import model.entities.Visit;
 import org.apache.log4j.Logger;
 
@@ -88,6 +85,79 @@ public class JDBCVisitDAO implements VisitDAO {
             throw new MyException("error while deletion of visit", ex);
         }
         return true;
+    }
+
+    /**
+     * Method marks presence or absence of the listener
+     * on the event for which this listener was subscribed
+     * @param listenerID indicator of listener
+     * @param eventID indicator of event
+     * @param presence 'yes' or 'no'
+     * @return 'true' in case of success
+     * @throws MyException if something went wrong
+     * with connection to DB
+     */
+
+    public boolean markPresence(int listenerID, int eventID, String presence) throws MyException {
+        try(PreparedStatement stmt = con.prepareStatement(Constants.MARK_PRESENCE)) {
+            stmt.setString(1, presence);
+            stmt.setInt(2, listenerID);
+            stmt.setInt(3, eventID);
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new MyException("error while mark visit presence", ex);
+        }
+        return true;
+    }
+
+    /**
+     * Method gets data from DB that represents count of
+     * registered listeners for some event, and count of
+     * listeners that actually came
+     * @param eventID indicator of event
+     * @return String that consists of two parts:
+     * first part is total amount of registered listeners
+     * second part is amount of listeners that actually came
+     * parts are separated by the space between them
+     */
+
+    public String[] getStatistics(int eventID) {
+        String[] result = new String[2];
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        Savepoint savepoint = null;
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(Constants.COUNT_ALL_VISITS_OF_EVENT);
+            stmt.setInt(1, eventID);
+
+            savepoint = con.setSavepoint();
+
+            res = stmt.executeQuery();
+            if(res.next()) { result[0] = res.getInt(1) + ""; }
+
+            stmt = con.prepareStatement(Constants.COUNT_CONFIRMED_VISITS_OF_EVENT);
+            stmt.setInt(1, eventID);
+            res = stmt.executeQuery();
+
+            if(res.next()) { result[1] = res.getInt(1) + ""; }
+
+            con.commit();
+
+        } catch (SQLException e) {
+            logger.error(e);
+            try {
+                if (con != null) { con.rollback(savepoint); }
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } finally {
+            close(res);
+            close(stmt);
+        }
+        return result;
     }
 
     @Override

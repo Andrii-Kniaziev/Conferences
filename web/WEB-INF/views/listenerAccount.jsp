@@ -20,14 +20,7 @@
 
 <div class="alert">Результат дії: ${requestScope.result}</div>
 
-<div class="container d-flex container-wrapper">
-    <div class="wrapper">
-        <form name="subscribeForEvent" acction="conferences">
-            <input type="hidden" name="command" value="eventSubscriptionInfo">
-            <input type="hidden" name="page" value="1">
-            <input type="submit" value="Регистрация на ивенты" class="btn btn-dark">
-        </form>
-    </div>
+<div class="container-small d-flex container-wrapper">
     <div class="wrapper">
         <h3>Переглянути івенти</h3>
         <form name="form5" acction="conferences" class="watch-events-form">
@@ -43,6 +36,20 @@
             <input type="hidden" name="command" value="getEvents">
             <input type="hidden" name="page" value="1">
             <input type="submit" value="Переглянути" class="btn btn-watch">
+        </form>
+    </div>
+    <div class="wrapper">
+        <form name="subscribeForEvent" acction="conferences">
+            <input type="hidden" name="command" value="eventSubscriptionInfo">
+            <input type="hidden" name="page" value="1">
+            <input type="submit" value="Реєстрація на заходи" class="btn btn-dark">
+        </form>
+    </div>
+
+    <div class="wrapper">
+        <form name="markPresence" acction="conferences">
+            <input type="hidden" name="command" value="markPresenceInfo">
+            <input type="submit" value="Відмітити присутність" class="btn btn-dark">
         </form>
     </div>
 </div>

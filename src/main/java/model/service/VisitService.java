@@ -68,4 +68,29 @@ public class VisitService {
         return true;
     }
 
+    /**
+     * Method will mark presence or absence of some
+     * listener on finished event for which this listener
+     * was subscribed
+     * @param listenerID indicator of listener
+     * @param eventID indicator of event
+     * @param presence 'yes' or 'no'
+     * @return 'true' in case of success and 'false' vice versa
+     */
+
+    public boolean markPresence(int listenerID, int eventID, String presence) {
+        try(VisitDAO dao = daoFactory.createVisitDao()) {
+            dao.markPresence(listenerID, eventID, presence);
+        } catch (MyException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public String[] getStatisticsOfEvent(int eventID) {
+        try(VisitDAO dao = daoFactory.createVisitDao()) {
+            return dao.getStatistics(eventID);
+        }
+    }
+
 }

@@ -85,6 +85,17 @@
         </form>
     </div>
 </div>
+<div class="container admin-acc-wrapper d-flex">
+    <div>
+    <h3>Перевірити відвідуваність</h3>
+
+        <form>
+            <label> ID заходу <input type="number" step="1" name="eventID"></label>
+            <input type="hidden" name="command" value="checkStatistics">
+            <input type="submit" value="Перевірити" class="btn btn-watch">
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

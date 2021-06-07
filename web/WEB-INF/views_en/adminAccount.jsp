@@ -84,6 +84,17 @@
         </form>
     </div>
 </div>
+<div class="container admin-acc-wrapper d-flex">
+    <div>
+        <h3>Check attendance</h3>
+
+        <form>
+            <label> Event ID <input type="number" step="1" name="eventID"></label>
+            <input type="hidden" name="command" value="checkStatistics">
+            <input type="submit" value="Check" class="btn btn-watch">
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

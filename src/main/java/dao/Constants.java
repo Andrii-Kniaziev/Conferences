@@ -4,6 +4,8 @@ public class Constants {
     public static final String UA = "UA";
     public static final String EN = "EN";
 
+    public static final String CONFIRMATION_OF_PRESENCE = "/WEB-INF/views/confirmationOfPresence.jsp";
+    public static final String CONFIRMATION_OF_PRESENCE_EN = "/WEB-INF/views_en/confirmationOfPresence.jsp";
     public static final String REGISTER_RESULT = "/WEB-INF/views/registration-result.jsp";
     public static final String REGISTER_RESULT_EN = "/WEB-INF/views_en/registration-result.jsp";
     public static final String ADMIN_ACCOUNT = "/WEB-INF/views/adminAccount.jsp";
@@ -148,6 +150,9 @@ public class Constants {
     public static final String SELECT_NOT_FINISHED_EVENTS =
             "SELECT id FROM event WHERE date > now()";
 
+    public static final String SELECT_FINISHED_EVENTS =
+            "SELECT id FROM event WHERE date < now()";
+
     public static final String FIND_TOPICS_WITHOUT_SPEAKERS =
             "SELECT * FROM topic " +
                     "WHERE (account_id is null OR " +
@@ -165,7 +170,25 @@ public class Constants {
                     "WHERE id = ?";
 
     public static final String SELECT_VISITS_BY_USER_ID =
-            "SELECT * FROM event_visitor WHERE account_id = ?";
+            "SELECT * FROM event_visitor " +
+            "WHERE (account_id = ? AND event_id IN (SELECT id FROM event WHERE date > now()))";
+
+    public static final String SELECT_NOT_MARKED_VISITS_FOR_LISTENER =
+            "select event_visitor.event_id, event.* \n" +
+                    "from event_visitor join event\n" +
+                    "on event_visitor.event_id = event.id \n" +
+                    "where account_id = ? \n" +
+                    "AND event_visitor.was_present = 'false' \n" +
+                    "AND event_visitor.event_id IN (Select id from event where date < now());";
+
+    public static final String COUNT_ALL_VISITS_OF_EVENT =
+            "SELECT count(*) FROM event_visitor WHERE event_id = ?;";
+
+    public static final String COUNT_CONFIRMED_VISITS_OF_EVENT =
+            "SELECT count(*) FROM event_visitor WHERE event_id = ? AND was_present = 'yes';";
+
+    public static final String MARK_PRESENCE =
+            "UPDATE event_visitor SET was_present = ? WHERE account_id = ? AND event_id = ?;";
 
     public static final String DELETE_VISIT =
             "DELETE FROM event_visitor WHERE account_id = ? AND event_id = ?";

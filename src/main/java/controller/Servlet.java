@@ -1,7 +1,6 @@
 package controller;
 
 import controller.commands.*;
-import dao.MyException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -38,6 +37,9 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         commands.put("offerTopicForEvent", new OfferTopicForEvent());
         commands.put("approveOrDenyTopic", new TopicDecisionCommand());
         commands.put("showTopicsInProcess", new TopicsInProcessCommand());
+        commands.put("markPresenceInfo", new MarkPresenceInfoCommand());
+        commands.put("markPresence", new MarkPresenceCommand());
+        commands.put("checkStatistics", new CheckStatisticsCommand());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

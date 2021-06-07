@@ -120,4 +120,39 @@ public class EventService {
 
         return false;
     }
+
+    /**
+     * The method checks if event is still not finished
+     * @param eventID indicator of event to check
+     * @return 'true' if event is not finished and vice versa
+     * @throws MyException in case if something is wrong with connection to DB
+     */
+
+    public boolean checkEventIsFinished(int eventID) throws MyException {
+        List<Integer> finished;
+        try (EventDAO dao = daoFactory.createEventDao()) {
+            finished = dao.getFinishedEventIDs();
+        }
+
+        if (finished.contains(eventID)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Method returns list of events for which user
+     * was subscribed but has not confirmed yet own
+     * presence
+     * @param listenerID indicator of user
+     * @return list of events
+     * @throws MyException in case if something is wrong with connection to DB
+     */
+
+    public List<Event> getEventsVisited(int listenerID) throws MyException {
+        try(EventDAO dao = daoFactory.createEventDao()) {
+            return dao.getEventsVisited(listenerID);
+        }
+    }
 }

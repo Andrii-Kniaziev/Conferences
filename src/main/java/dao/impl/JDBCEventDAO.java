@@ -90,6 +90,29 @@ public class JDBCEventDAO implements EventDAO {
     }
 
     /**
+     * Method gets IDs of finished events
+     * @return list of IDs of finished events
+     * @throws MyException in case if something is wrong with connection to DB
+     */
+
+    public List<Integer> getFinishedEventIDs() throws MyException {
+        List<Integer> ids = new ArrayList<>();
+
+        try(Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(Constants.SELECT_FINISHED_EVENTS)) {
+
+            while (res.next()) {
+                ids.add(res.getInt(1));
+            }
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new MyException("Something went wrong with getting finished event IDs", e);
+        }
+
+        return ids;
+    }
+
+    /**
      * Method gets list of 5 Events starting from some index
      * @param index starting index
      * @param query different queries
@@ -137,6 +160,33 @@ public class JDBCEventDAO implements EventDAO {
             logger.error(e);
         }
         return -1;
+    }
+
+    /**
+     * Method returns finished events for which some listener
+     * was subscribed
+     * @param listenerID indicator of listener
+     * @return list of finished events
+     * @throws MyException in case if something is wrong with connection to DB
+     */
+
+    public List<Event> getEventsVisited(int listenerID) throws MyException {
+        List<Event> events;
+        ResultSet res = null;
+
+        try(PreparedStatement stmt = con.prepareStatement(Constants.SELECT_NOT_MARKED_VISITS_FOR_LISTENER)) {
+            stmt.setInt(1, listenerID);
+            res = stmt.executeQuery();
+
+            events = new EventMapper().getEventsFromResultSet(res);
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new MyException("Something went wrong with getting events from DB", e);
+        } finally {
+            close(res);
+        }
+
+        return events;
     }
 
     @Override

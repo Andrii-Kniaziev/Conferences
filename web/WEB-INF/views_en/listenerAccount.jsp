@@ -20,7 +20,24 @@
 
 <div class="alert">Action result: ${requestScope.result}</div>
 
-<div class="container d-flex container-wrapper">
+<div class="container-small d-flex container-wrapper">
+    <div class="wrapper">
+        <p>Watch event history</p>
+        <form name="form5" acction="conferences" class="watch-events-form">
+            <select name="eventTime" required>
+                <option value="future">Future</option>
+                <option value="past">Past</option>
+            </select>
+            <select name="sortBy" required>
+                <option value="date">By date</option>
+                <option value="topicNumber">By topic quantity</option>
+                <option value="listenersNumber">By quantity of listeners</option>
+            </select>
+            <input type="hidden" name="command" value="getEvents">
+            <input type="hidden" name="page" value="1">
+            <input type="submit" value="Look" class="btn btn-watch">
+        </form>
+    </div>
     <div class="wrapper">
         <form name="subscribeForEvent" acction="conferences">
             <input type="hidden" name="command" value="eventSubscriptionInfo">
@@ -29,21 +46,10 @@
         </form>
     </div>
     <div class="wrapper">
-    <p>Watch event history</p>
-    <form name="form5" acction="conferences" class="watch-events-form">
-        <select name="eventTime" required>
-            <option value="future">Future</option>
-            <option value="past">Past</option>
-        </select>
-        <select name="sortBy" required>
-            <option value="date">By date</option>
-            <option value="topicNumber">By topic quantity</option>
-            <option value="listenersNumber">By quantity of listeners</option>
-        </select>
-        <input type="hidden" name="command" value="getEvents">
-        <input type="hidden" name="page" value="1">
-        <input type="submit" value="Look" class="btn btn-watch">
-    </form>
+        <form name="markPresence" acction="conferences">
+            <input type="hidden" name="command" value="markPresenceInfo">
+            <input type="submit" value="Mark presence" class="btn btn-dark">
+        </form>
     </div>
 </div>
 
