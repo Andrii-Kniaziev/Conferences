@@ -22,6 +22,10 @@ public class AuthFilter implements Filter {
                          ServletResponse response,
                          FilterChain filterChain) throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         final HttpServletRequest req = (HttpServletRequest) request;
         final HttpServletResponse res = (HttpServletResponse) response;
         final HttpSession session = req.getSession();
@@ -82,12 +86,5 @@ public class AuthFilter implements Filter {
             req.getRequestDispatcher(Constants.LISTENER_ACCOUNT_EN).forward(req, resp);
         }
 
-//        if ("admin".equals(role)) {
-//            req.getRequestDispatcher(Constants.ADMIN_ACCOUNT).forward(req, resp);
-//        } else if ("listener".equals(role)) {
-//            req.getRequestDispatcher(Constants.LISTENER_ACCOUNT).forward(req, resp);
-//        } else {
-//            req.getRequestDispatcher(Constants.SPEAKER_ACCOUNT).forward(req, resp);
-//        }
     }
 }

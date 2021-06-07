@@ -35,8 +35,6 @@ public class EventSubscriptionInfoCommand implements Command {
         req.setAttribute("pages", pages);
         req.setAttribute("eventIDs", eventIDs);
 
-        String language = (String) req.getSession().getAttribute("language");
-
         if(checkLanguageEN(req)) {
             return Constants.EVENT_SUBSCRIPTION_EN;
         }

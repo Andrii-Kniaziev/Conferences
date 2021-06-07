@@ -1,7 +1,6 @@
 package dao.impl;
 
 import dao.Constants;
-import dao.DaoFactory;
 import dao.MyException;
 import dao.TopicDAO;
 import dao.mapper.TopicMapper;
@@ -199,5 +198,6 @@ public class JDBCTopicDAO implements TopicDAO {
             throw new RuntimeException(e);
         }
     }
+
 
 }

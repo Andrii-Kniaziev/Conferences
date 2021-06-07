@@ -26,7 +26,6 @@
             <input type="hidden" name="command" value="eventSubscriptionInfo">
             <input type="hidden" name="page" value="1">
             <input type="submit" value="Registration for events" class="btn btn-dark">
-
         </form>
     </div>
     <div class="wrapper">
