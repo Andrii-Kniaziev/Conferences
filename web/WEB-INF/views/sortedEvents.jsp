@@ -19,7 +19,6 @@
         <th>Опис</th>
         <th>Дата проведення</th>
         <th>Місце</th>
-        <th>Завершений</th>
     </tr>
     <c:forEach var="i" items="${events}">
         <tr>
@@ -28,7 +27,6 @@
             <td>${i.description}</td>
             <td>${i.formattedDate}</td>
             <td>${i.place}</td>
-            <td>${i.finished}</td>
         </tr>
     </c:forEach>
 </table>

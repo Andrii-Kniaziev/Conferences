@@ -1,7 +1,5 @@
 package dao.mapper;
 
-import dao.Constants;
-import model.entities.Topic;
 import model.entities.Visit;
 
 import java.sql.ResultSet;
@@ -10,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisitMapper {
+
+    /**
+     * Method extracts data from ResultSet and creates
+     * objects of Visit class for further processing
+     * @param res ResultSet
+     * @return list of Visit class objects
+     * @throws SQLException in case of errors
+     */
 
     public List<Visit> getVisitsFromResSet(ResultSet res) throws SQLException {
         List<Visit> visits = new ArrayList<>();

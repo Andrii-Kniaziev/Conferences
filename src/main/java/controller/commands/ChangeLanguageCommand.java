@@ -1,9 +1,6 @@
 package controller.commands;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import dao.Constants;
-import dao.MyException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

@@ -19,7 +19,6 @@
         <th>Description</th>
         <th>Date</th>
         <th>Place</th>
-        <th>Is finished</th>
     </tr>
     <c:forEach var="i" items="${events}">
         <tr>
@@ -28,7 +27,6 @@
             <td>${i.description}</td>
             <td>${i.formattedDate}</td>
             <td>${i.place}</td>
-            <td>${i.finished}</td>
         </tr>
     </c:forEach>
 </table>

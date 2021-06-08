@@ -15,7 +15,7 @@ import model.service.AccountService;
 public class RegisterCommand implements Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest request, HttpServletResponse resp) {
         Properties pr = getProperties(request);
 
         String result = pr.getProperty("registerSuccess");

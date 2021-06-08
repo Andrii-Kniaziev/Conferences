@@ -1,7 +1,6 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.MyException;
 import model.service.VisitService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,7 @@ import java.util.Properties;
 
 public class UnsubscribeFromEventCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Properties pr = getProperties(req);
         VisitService visitService = new VisitService();
 

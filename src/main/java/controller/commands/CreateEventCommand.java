@@ -1,7 +1,6 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.impl.JDBCEventDAO;
 import dao.MyException;
 import model.entities.Event;
 import model.service.EventService;
@@ -37,7 +36,7 @@ public class CreateEventCommand implements Command {
         } catch (ParseException e) {
             result = pr.getProperty("wrongDateTime");
             req.setAttribute("result", result);
-            return Constants.ADMIN_ACCOUNT;
+            return nextPage(req);
         }
 
         cal.setTime(date);
@@ -46,10 +45,13 @@ public class CreateEventCommand implements Command {
         service.insertEvent(new Event(name, description, cal, place, isFinished));
         req.setAttribute("result", result);
 
+        return nextPage(req);
+    }
+
+    public String nextPage(HttpServletRequest req) {
         if(checkLanguageEN(req)) {
             return Constants.ADMIN_ACCOUNT_EN;
         }
-
         return Constants.ADMIN_ACCOUNT;
     }
 }

@@ -9,6 +9,14 @@ import java.sql.SQLException;
 
 public class AccountMapper {
 
+    /**
+     * Method extracts data from ResultSet and creates
+     * object of Account class for further processing
+     * @param res ResultSet
+     * @return Account object
+     * @throws SQLException in case of errors
+     */
+
     public Account getAccFromRS (ResultSet res) throws SQLException {
         int id = res.getInt(Constants.FIELD_ID);
         String firstName = res.getString(Constants.FIELD_FIRST_NAME);

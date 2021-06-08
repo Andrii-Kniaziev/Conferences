@@ -11,6 +11,15 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class EventMapper {
+
+    /**
+     * Method extracts data from ResultSet and creates
+     * objects of Event class for further processing
+     * @param res ResultSet
+     * @return list of events taken from DB
+     * @throws SQLException in case of errors
+     */
+
     public List<Event> getEventsFromResultSet(ResultSet res) throws SQLException {
         List<Event> events = new ArrayList<>();
 
@@ -31,6 +40,18 @@ public class EventMapper {
 
         return events;
     }
+
+    /**
+     * Method finds specific query for extraction
+     * sorted events from DB. Selection is made on
+     * the basis of parameters
+     * @param time 'future' - not finished events
+     * and 'past' finished events
+     * @param sorting 'date' - sorted by date
+     * 'topicNumber' - quantity of topics in each event
+     * 'listenersNumber' - quantity of listeners in each event
+     * @return SQL query
+     */
 
     public String getQueryForEventSort(String time, String sorting) {
         String res = "";

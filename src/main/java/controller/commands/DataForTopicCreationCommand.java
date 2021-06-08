@@ -1,8 +1,6 @@
 package controller.commands;
 
-import dao.impl.JDBCAccountDAO;
 import dao.Constants;
-import dao.impl.JDBCEventDAO;
 import dao.MyException;
 import model.entities.Account;
 import model.entities.Event;

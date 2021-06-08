@@ -1,7 +1,6 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.MyException;
 import model.entities.Visit;
 import model.service.VisitService;
 

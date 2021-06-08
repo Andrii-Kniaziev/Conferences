@@ -10,6 +10,14 @@ import java.util.List;
 
 public class TopicMapper {
 
+    /**
+     * Method extracts data from ResultSet
+     * and generates Topic objects from it
+     * @param res ResultSet
+     * @return list of generated topics
+     * @throws SQLException in case of errors
+     */
+
     public List<Topic> getTopicsFromResSet (ResultSet res) throws SQLException {
         List<Topic> topics = new ArrayList<>();
 

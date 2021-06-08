@@ -1,14 +1,13 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.MyException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ReturnToMainPageCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String role = (String) req.getSession().getAttribute("role");
         String language = (String) req.getSession().getAttribute("language");
 
