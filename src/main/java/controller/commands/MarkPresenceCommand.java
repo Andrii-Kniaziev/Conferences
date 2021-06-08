@@ -7,6 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
+/**
+ * This command is responsible for ability of
+ * listener to mark finished event for which
+ * this listener was registered as visited or
+ * not visited. So then, admin can check statistic
+ * of visits for events.
+ */
+
 public class MarkPresenceCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

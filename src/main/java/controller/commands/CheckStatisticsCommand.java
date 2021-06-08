@@ -9,6 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
+/**
+ * This command is responsible for case when admin wants
+ * to see statistic of visits for specified event.
+ * Number of event is gotten from HttpServletRequest,
+ * parameter name is 'eventID'.
+ * In case if event doesn`t exist warning will be returned
+ * to the web page.
+ */
+
 public class CheckStatisticsCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

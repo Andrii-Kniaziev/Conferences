@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
+/**
+ * Listener can unsubscribe from event if
+ * he(she) doesn`t want to visit it anymore.
+ */
+
 public class UnsubscribeFromEventCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

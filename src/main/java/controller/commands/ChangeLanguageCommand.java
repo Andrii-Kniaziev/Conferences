@@ -4,6 +4,12 @@ import dao.Constants;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This command is used for purpose of changing
+ * language, two languages are available:
+ * Ukrainian and English.
+ */
+
 public class ChangeLanguageCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

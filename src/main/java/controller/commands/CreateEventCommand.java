@@ -14,6 +14,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
+/**
+ * This command is responsible for creation of new events.
+ * Only admin can create new event. In case if wrong input date
+ * is entered, corresponding warning message appears.
+ * In case of successful creation of new event, confirmation
+ * message appears.
+ */
+
 public class CreateEventCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
+/**
+ * At this command admin can offer free topic
+ * for some speaker. Topic is specified by 'topicID'
+ * parameter and speaker is specified by 'speakerID'
+ */
+
 public class SubmitTopicToSpeakerCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

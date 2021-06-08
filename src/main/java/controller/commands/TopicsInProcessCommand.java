@@ -7,6 +7,12 @@ import model.service.TopicService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Method will send topics that specified speaker
+ * has offered to spend to admin, but admin hasn`t
+ * done decision yet.
+ */
+
 public class TopicsInProcessCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

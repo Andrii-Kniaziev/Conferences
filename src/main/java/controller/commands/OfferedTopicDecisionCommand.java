@@ -1,16 +1,22 @@
 package controller.commands;
 
 import dao.Constants;
-import dao.MyException;
 import model.service.TopicService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
+/**
+ * This command is used when speaker makes decision
+ * about offered by admin topics. Admin can offer
+ * to spend some topic to speaker and speaker can
+ * confirm or decline this offer.
+ */
+
 public class OfferedTopicDecisionCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Properties pr = getProperties(req);
         TopicService service = new TopicService();
 

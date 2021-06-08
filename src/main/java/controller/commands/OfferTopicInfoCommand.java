@@ -11,6 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command sends data for special form available
+ * only for admin. At this form admin can offer to spend
+ * some topics without speakers to another speakers.
+ * Also at this form admin can confirm or reject offers
+ * from speakers to add some topic to event and spend it.
+ * On the jsp will be checked if previous speaker rejected
+ * admin`s offer to spend topic, admin will not be able to
+ * send this topic second time to the same speaker.
+ */
+
 public class OfferTopicInfoCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

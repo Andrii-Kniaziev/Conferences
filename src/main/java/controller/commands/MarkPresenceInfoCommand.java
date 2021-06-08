@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command sends list of finished events
+ * for specified listener for which this listener
+ * was registered. Listener can confirm
+ * or deny presence on these events.
+ */
+
 public class MarkPresenceInfoCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws MyException {

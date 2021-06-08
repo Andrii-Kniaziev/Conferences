@@ -11,6 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command returns information to the form
+ * where new topics will be created. Data for
+ * topic creation is: available speakers and
+ * not finished events at the moment of creation new
+ * topic.
+ */
+
 public class DataForTopicCreationCommand implements Command {
 
     @Override
