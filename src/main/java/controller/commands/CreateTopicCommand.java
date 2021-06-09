@@ -19,24 +19,36 @@ public class CreateTopicCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Properties pr = getProperties(req);
 
+        boolean speakerApproved = Boolean.parseBoolean(req.getParameter("speakerApproved"));
         String topicName = req.getParameter("topicName");
         String description = req.getParameter("topicDescription");
-        int eventId = Integer.parseInt(req.getParameter("eventID"));
-        int speakerId = Integer.parseInt(req.getParameter("speakerID"));
-        boolean speakerApproved = Boolean.parseBoolean(req.getParameter("speakerApproved"));
+        int eventId;
+        int speakerId;
+
+        try {
+            eventId = Integer.parseInt(req.getParameter("eventID"));
+            speakerId = Integer.parseInt(req.getParameter("speakerID"));
+            if(topicName == null || description == null) {
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException ex) {
+            req.setAttribute("result", pr.getProperty("emptyFields"));
+            return getNextStep(req);
+        }
 
         Topic topic = new Topic(eventId, speakerId, topicName, description, true, speakerApproved);
 
-        TopicService service = new TopicService();
-        boolean res = service.createNewTopic(topic);
-
-        if(res) {
+        if(new TopicService().createNewTopic(topic)) {
             req.setAttribute("result", pr.getProperty("newTopic") + topicName + " "
                     + pr.getProperty("created"));
         } else {
             req.setAttribute("result", pr.getProperty("topicNotCreated"));
         }
 
+        return getNextStep(req);
+    }
+
+    public String getNextStep(HttpServletRequest req) {
         if(checkLanguageEN(req)) {
             return Constants.ADMIN_ACCOUNT_EN;
         }

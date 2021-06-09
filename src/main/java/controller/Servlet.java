@@ -14,7 +14,7 @@ import java.util.Map;
 public class Servlet extends javax.servlet.http.HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         config.getServletContext()
                 .setAttribute("loggedUsers", new HashSet<String>());
 

@@ -91,7 +91,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Створити" class="btn submit-btn">
+        <input type="submit" value="Create" class="btn submit-btn">
     </form>
 </div>
 <p class="to-main">

@@ -24,9 +24,13 @@ public class OfferTopicForEvent implements Command {
         int eventID = Integer.parseInt(req.getParameter("eventID"));
         int speakerID = Integer.parseInt((String) req.getSession().getAttribute(Constants.FIELD_ID));
 
+        if(name == null || description == null) {
+            req.setAttribute("result", pr.getProperty("emptyFields"));
+            return choosePage(req);
+        }
+
         if(!new EventService().checkEventIsNotFinished(eventID)) {
             req.setAttribute("result", pr.getProperty("idOfEventThatWasFinishedOrNotExists"));
-
             return choosePage(req);
         }
 
