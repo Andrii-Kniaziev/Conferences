@@ -1,21 +1,20 @@
 package model.entities;
 
 public class Visit {
-    private int accountID;
-    private int eventID;
-    private boolean was_present;
+    private int accountId;
+    private int eventId;
 
-    public Visit(int accountID, int eventID) {
-        this.accountID = accountID;
-        this.eventID = eventID;
+    public Visit(int accountId, int eventId) {
+        this.accountId = accountId;
+        this.eventId = eventId;
     }
 
     public int getAccountID() {
-        return accountID;
+        return accountId;
     }
 
     public int getEventID() {
-        return eventID;
+        return eventId;
     }
 
 

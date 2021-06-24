@@ -4,6 +4,7 @@ import dao.MyException;
 import dao.impl.ConnectionPoolHolder;
 import model.entities.Account;
 import model.entities.Role;
+import model.entities.builders.AccountBuilderImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,19 +24,20 @@ public class AccountServiceTest {
             "OR email = 'test2@gmail.com') " +
             "AND role = 'admin';";
     private Account original;
-    private Account forEmailTest;
-    private Account accountExists;
+    private Account emailTest;
+    private Account accExists;
     private AccountService service;
 
     @Before
     public void setUp() {
         service = new AccountService();
-        original = new Account("test@gmail.com", "Aa1@0000",
-                "Test", "Test", Role.ADMIN);
-        accountExists = new Account("test2@gmail.com", "Aa1@0000",
-                "Test", "Test", Role.ADMIN);
-        forEmailTest = new Account("test1@gmail.com", "Aa1@0000",
-                "Test", "Test", Role.ADMIN);
+
+        original = new AccountBuilderImpl().setEmail("test@gmail.com").setPassword("Aa1@0000").setFirstName("Test")
+                .setLastName("Test").setRole(Role.ADMIN).build();
+        accExists = new AccountBuilderImpl().setEmail("test2@gmail.com").setPassword("Aa1@0000").setFirstName("Test")
+                .setLastName("Test").setRole(Role.ADMIN).build();
+        emailTest = new AccountBuilderImpl().setEmail("test1@gmail.com").setPassword("Aa1@0000").setFirstName("Test")
+                .setLastName("Test").setRole(Role.ADMIN).build();
     }
 
     @Test
@@ -45,17 +47,17 @@ public class AccountServiceTest {
 
     @Test(expected = MyException.class)
     public void account_already_exists_test() throws MyException {
-        assertTrue(service.createNewAccount(accountExists));
-        service.createNewAccount(accountExists);
+        assertTrue(service.createNewAccount(accExists));
+        service.createNewAccount(accExists);
     }
 
 
     @Test
     public void get_account_by_email_test() throws MyException {
-        service.createNewAccount(forEmailTest);
+        service.createNewAccount(emailTest);
 
         Account fromDB = service.getAccountByEmail("test1@gmail.com");
-        assertEquals(forEmailTest, fromDB);
+        assertEquals(emailTest, fromDB);
     }
 
     @Test

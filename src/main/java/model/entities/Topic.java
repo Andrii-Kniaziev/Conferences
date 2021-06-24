@@ -10,41 +10,6 @@ public class Topic {
     private boolean speakerApproved;
     private boolean decisionDone;
 
-    public Topic(int id, int eventId, int speakerId, String name, String description,
-                 boolean adminApproved, boolean speakerApproved, boolean decisionDone) {
-        this.id = id;
-        this.eventId = eventId;
-        this.speakerId = speakerId;
-        this.name = name;
-        this.description = description;
-        this.adminApproved = adminApproved;
-        this.speakerApproved = speakerApproved;
-        this.decisionDone = decisionDone;
-    }
-
-    public Topic(int eventId, int speakerId, String name, String description,
-                 boolean adminApproved, boolean speakerApproved, boolean decisionDone) {
-        this.eventId = eventId;
-        this.speakerId = speakerId;
-        this.name = name;
-        this.description = description;
-        this.adminApproved = adminApproved;
-        this.speakerApproved = speakerApproved;
-        this.decisionDone = decisionDone;
-    }
-
-    public Topic(int eventId, int speakerId, String name, String description, boolean adminApproved, boolean speakerApproved) {
-        this.eventId = eventId;
-        this.speakerId = speakerId;
-        this.name = name;
-        this.description = description;
-        this.adminApproved = adminApproved;
-        this.speakerApproved = speakerApproved;
-        if(adminApproved && speakerApproved) {
-            decisionDone = true;
-        }
-    }
-
     public int getId() { return id; }
 
     public int getEventId() {
@@ -74,6 +39,22 @@ public class Topic {
     public boolean isDeсisionDone() {
         return decisionDone;
     }
+
+    public void setId(int id) { this.id = id; }
+
+    public void setEventId(int eventId) { this.eventId = eventId; }
+
+    public void setSpeakerId(int speakerId) { this.speakerId = speakerId; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void setAdminApproved(boolean adminApproved) { this.adminApproved = adminApproved; }
+
+    public void setSpeakerApproved(boolean speakerApproved) { this.speakerApproved = speakerApproved; }
+
+    public void setDecisionDone(boolean decisionDone) { this.decisionDone = decisionDone; }
 
     @Override
     public String toString() {

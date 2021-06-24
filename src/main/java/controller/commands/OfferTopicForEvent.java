@@ -2,7 +2,7 @@ package controller.commands;
 
 import dao.Constants;
 import dao.MyException;
-import model.entities.Topic;
+import model.entities.builders.TopicBuilderImpl;
 import model.service.EventService;
 import model.service.TopicService;
 
@@ -34,9 +34,15 @@ public class OfferTopicForEvent implements Command {
             return choosePage(req);
         }
 
-        TopicService topicService = new TopicService();
-        boolean res = topicService.createNewTopic(new Topic(eventID, speakerID, name, description,
-                false, true, false));
+        boolean res = new TopicService().createNewTopic(new TopicBuilderImpl()
+                .setEventId(eventID)
+                .setSpeakerId(speakerID)
+                .setName(name)
+                .setDescription(description)
+                .setAdminApproved(false)
+                .setSpeakerApproved(true)
+                .setDecisionDone(false)
+                .build());
 
         if(res) {
             req.setAttribute("result", pr.getProperty("youHaveOfferedNewTopic") + " " + name);

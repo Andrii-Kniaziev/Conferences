@@ -8,26 +8,7 @@ public class Account {
     private String lastName;
     private Role role;
 
-    public Account(String email, String password, String first_name, String last_name, Role role) {
-        this.email = email;
-        this.password = password;
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.role = role;
-    }
-
-    public Account(int id, String email, String password, String firstName, String lastName, Role role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
-    }
-
     public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 
     public String getEmail() { return email; }
 
@@ -40,6 +21,16 @@ public class Account {
     public Role getRole() { return role; }
 
     public void setRole(Role role) { this.role = role; }
+
+    public void setId(int id) { this.id = id; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     @Override
     public String toString() {

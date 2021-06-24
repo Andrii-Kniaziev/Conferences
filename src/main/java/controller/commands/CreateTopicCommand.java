@@ -2,6 +2,7 @@ package controller.commands;
 
 import dao.Constants;
 import model.entities.Topic;
+import model.entities.builders.TopicBuilderImpl;
 import model.service.TopicService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,16 @@ public class CreateTopicCommand implements Command {
             return getNextStep(req);
         }
 
-        Topic topic = new Topic(eventId, speakerId, topicName, description, true, speakerApproved);
+        //Topic topic = new Topic(eventId, speakerId, topicName, description, true, speakerApproved);
+
+        Topic topic = new TopicBuilderImpl()
+                .setEventId(eventId)
+                .setSpeakerId(speakerId)
+                .setName(topicName)
+                .setDescription(description)
+                .setAdminApproved(true)
+                .setSpeakerApproved(speakerApproved)
+                .build();
 
         if(new TopicService().createNewTopic(topic)) {
             req.setAttribute("result", pr.getProperty("newTopic") + topicName + " "

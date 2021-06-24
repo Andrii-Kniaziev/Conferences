@@ -10,6 +10,7 @@ import dao.Constants;
 import dao.MyException;
 import model.entities.Account;
 import model.entities.Role;
+import model.entities.builders.AccountBuilderImpl;
 import model.service.AccountService;
 
 public class RegisterCommand implements Command {
@@ -39,7 +40,15 @@ public class RegisterCommand implements Command {
             return getNextPage(request);
         }
 
-        Account newAcc = new Account(email, password, firstName, lastName, role);
+        Account newAcc = new AccountBuilderImpl()
+                .setEmail(email)
+                .setPassword(password)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setRole(role)
+                .build();
+
+
         try{
             service.createNewAccount(newAcc);
         } catch (MyException ex) {

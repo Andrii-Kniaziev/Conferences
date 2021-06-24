@@ -6,6 +6,8 @@ import model.entities.Account;
 import model.entities.Event;
 import model.entities.Role;
 import model.entities.Topic;
+import model.entities.builders.AccountBuilderImpl;
+import model.entities.builders.TopicBuilderImpl;
 import org.junit.*;
 
 import java.sql.*;
@@ -22,8 +24,8 @@ public class TopicServiceTest {
 
     @BeforeClass
     public static void create_listener_and_event_in_DB_for_test() throws MyException, SQLException {
-        Account listener = new Account("test@gmail.com", "Aa1@0000",
-                "Test", "Test", Role.ADMIN);
+        Account listener = new AccountBuilderImpl().setEmail("test@gmail.com").setPassword("Aa1@0000").setFirstName("Test")
+                .setLastName("Test").setRole(Role.ADMIN).build();
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.set(2021, Calendar.DECEMBER, 11);
         Event event = new Event("Test", "Test", calendar, "Test", false);
@@ -54,8 +56,14 @@ public class TopicServiceTest {
 
     @Test
     public void create_new_topic_test() {
-        Topic topic = new Topic
-                (eventID, speakerID, "Test", "Test", true, false);
+        Topic topic = new TopicBuilderImpl()
+                .setEventId(eventID)
+                .setSpeakerId(speakerID)
+                .setName("Test")
+                .setDescription("Test")
+                .setAdminApproved(true)
+                .setSpeakerApproved(false)
+                .build();
         assertTrue(service.createNewTopic(topic));
     }
 

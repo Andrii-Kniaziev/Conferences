@@ -2,6 +2,7 @@ package dao.mapper;
 
 import dao.Constants;
 import model.entities.Topic;
+import model.entities.builders.TopicBuilderImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +30,18 @@ public class TopicMapper {
             String description = res.getString(Constants.FIELD_DESCRIPTION);
             boolean adminApproved = Boolean.parseBoolean(res.getString(Constants.ADMIN_APPROVED));
             boolean speakerApproved = Boolean.parseBoolean(res.getString(Constants.SPEAKER_APPROVED));
-            boolean desigionDone = Boolean.parseBoolean(res.getString(Constants.DESIGION_IS_DONE));
+            boolean decisionDone = Boolean.parseBoolean(res.getString(Constants.DESIGION_IS_DONE));
 
-            topics.add(new Topic(id, eventId, speakerId, name,
-                    description, adminApproved, speakerApproved, desigionDone));
+            topics.add(new TopicBuilderImpl()
+                    .setId(id)
+                    .setEventId(eventId)
+                    .setSpeakerId(speakerId)
+                    .setName(name)
+                    .setDescription(description)
+                    .setAdminApproved(adminApproved)
+                    .setSpeakerApproved(speakerApproved)
+                    .setDecisionDone(decisionDone)
+                    .build());
         }
 
         return topics;

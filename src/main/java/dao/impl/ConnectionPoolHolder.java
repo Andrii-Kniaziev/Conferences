@@ -1,8 +1,6 @@
 package dao.impl;
 
 import org.apache.commons.dbcp.BasicDataSource;
-//import org.apache.commons.dbcp2.BasicDataSource;
-
 import javax.sql.DataSource;
 
 public class ConnectionPoolHolder {
